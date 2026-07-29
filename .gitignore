@@ -1,0 +1,34 @@
+# Python environments and generated package metadata
+.venv/
+venv/
+*.egg-info/
+
+# Python caches and test output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+Untitled.ipynb
+
+# macOS and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Private/raw planning exports
+Passion Project Ideas_*.md
+
+# Generated project artifacts
+checkpoints/*
+data/generated/
+figures/generated/
+results/generated/
+
+# Keep optional placeholder files in generated directories
+!checkpoints/.gitkeep
+!data/generated/.gitkeep
+!figures/generated/.gitkeep
+!results/generated/.gitkeep

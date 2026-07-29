@@ -1,0 +1,10 @@
+torch>=2.2,<2.3
+numpy>=1.26,<2
+pandas>=2.2,<3
+scikit-learn>=1.5,<2
+matplotlib>=3.9,<4
+seaborn>=0.13,<1
+jupyterlab>=4.2,<5
+ipykernel>=6.29,<7
+tqdm>=4.66,<5
+pytest>=8.2,<9
