@@ -10,9 +10,9 @@ This workspace supports the passion project:
 | Week | Focus | Status | Main output |
 |---:|---|---|---|
 | 1 | Research question and scope | Complete | [Project proposal](docs/proposal.md) |
-| 2 | Mathematical foundations | Not started | Mathematics notebook |
+| 2 | Formal world construction | Complete | [World simulator](src/tiny_transformer_world/world.py) and [dataset](data/week2_little_world_dataset.json) |
 | 3 | Attention and literature | Not started | Reading summaries |
-| 4 | Formal world design | Not started | Formal specification |
+| 4 | Dataset generation | Not started | Generated training and test sets |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -20,6 +20,10 @@ Week 1 also produced a [working glossary](docs/glossary.md), a
 [research framework](docs/research_framework.md) records the primary question,
 three secondary questions, testable hypothesis, five predictions, and
 operational definition used by the experiments.
+
+Week 2 implemented the deterministic simulator, eleven audited coverage
+stories, complete JSON records with state traces and evidence IDs, and
+automated tests. See the [Week 2 research log](docs/research_log/week_02.md).
 
 ## What is installed
 
@@ -37,6 +41,8 @@ Open a terminal in this folder and run:
 ```bash
 source .venv/bin/activate
 python scripts/check_environment.py
+python scripts/generate_week2_dataset.py
+pytest
 jupyter lab
 ```
 

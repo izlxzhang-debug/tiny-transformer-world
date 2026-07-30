@@ -1,8 +1,8 @@
 # Controlled Fictional-World Specification
 
-**Status:** Week 1 specification
+**Status:** Week 2 implemented specification
 
-**Last updated:** 29 July 2026
+**Last updated:** 30 July 2026
 
 This document defines the world that will be implemented by the rule-based
 simulator and used to generate the transformer's stories. The rules must be
@@ -41,16 +41,23 @@ planet.
 
 ## State representation
 
-At every time step, the simulator must store:
+Let \(A\), \(O\), and \(L\) be the sets of agents, objects, and locations.
+The simulator represents a state as:
 
-1. the one current location of each agent;
-2. the carrier of each object, or `Nobody`; and
-3. the location of every uncarried object.
+\[
+S_t=(P_t,U_t)
+\]
 
-For any object, exactly one of `carrier` and `location` is active:
+where \(P_t:A\rightarrow L\) gives each agent's location and
+\(U_t:O\rightarrow A\cup L\) gives each object's carrier or uncarried
+location.
 
-- a carried object has a carrier and no independent location;
-- an uncarried object has a location and no carrier.
+- If \(U_t(o)\in A\), that agent carries the object.
+- If \(U_t(o)\in L\), the object lies uncarried at that location.
+
+The object's physical location is derived from its carrier's location when it
+is carried. This unified representation prevents an object from being both
+carried and independently located somewhere.
 
 ## Actions
 
@@ -102,6 +109,16 @@ same agent to pick it up again immediately.
    object.
 10. An object cannot be both carried and independently located somewhere.
 11. Two agents cannot carry the same object simultaneously.
+
+Each event is applied by a single transition function:
+
+\[
+S_{t+1}=T(S_t,E_t)
+\]
+
+The event and all automatic pickups finish before the next event begins. The
+index \(t\) is an event index rather than physical clock time, so simultaneous
+arrivals are outside the model.
 
 ## Required initial state
 
