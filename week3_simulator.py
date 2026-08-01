@@ -71,12 +71,8 @@ def effective_location(state, object_name):
     return holder_or_location
 
 
-def pick_up(state, agent, object_name):
-    """Pick up one loose, co-located object.
-
-    This is an internal simulator operation normally triggered automatically
-    when an agent arrives at a location.
-    """
+def _pick_up_in_place(state, agent, object_name):
+    """Apply one validated pickup to a state owned by the simulator."""
     if agent not in AGENTS:
         raise InvalidActionError(f"Unknown agent: {agent}")
     if object_name not in OBJECTS:
@@ -98,8 +94,22 @@ def pick_up(state, agent, object_name):
     state["object_states"][object_name] = agent
 
 
+def pick_up(state, agent, object_name):
+    """Return a new state after picking up one loose, co-located object.
+
+    This is an internal simulator operation normally triggered automatically
+    when an agent arrives at a location.
+    """
+    validate_state(state)
+    new_state = deepcopy(state)
+    _pick_up_in_place(new_state, agent, object_name)
+    validate_state(new_state)
+    return new_state
+
+
 def move(state, agent, destination):
     """Move an agent and automatically collect every loose object there."""
+    validate_state(state)
     if agent not in AGENTS:
         raise InvalidActionError(f"Unknown agent: {agent}")
     if destination not in LOCATIONS:
@@ -116,7 +126,7 @@ def move(state, agent, destination):
     ]
 
     for object_name in loose_objects:
-        pick_up(new_state, agent, object_name)
+        _pick_up_in_place(new_state, agent, object_name)
 
     validate_state(new_state)
     return new_state, loose_objects
@@ -124,6 +134,7 @@ def move(state, agent, destination):
 
 def drop(state, agent, object_name):
     """Drop an object without triggering automatic pickup."""
+    validate_state(state)
     if agent not in AGENTS:
         raise InvalidActionError(f"Unknown agent: {agent}")
     if object_name not in OBJECTS:
@@ -182,6 +193,14 @@ def run_tests():
     except InvalidActionError:
         pass
     assert state == original_state
+
+    # A valid direct pickup returns a new state instead of replacing state
+    # with None or unexpectedly mutating the caller's state.
+    state = make_initial_state()
+    picked_up_state = pick_up(state, "Lammy", "Hairbrush")
+    assert picked_up_state is not None
+    assert who_is_carrying(picked_up_state, "Hairbrush") == "Lammy"
+    assert who_is_carrying(state, "Hairbrush") == "Nobody"
 
     # Dropping an object not being carried is invalid.
     try:
