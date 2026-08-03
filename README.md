@@ -13,6 +13,8 @@ This workspace supports the passion project:
 | 2 | Formal world construction | Complete | [World simulator](src/tiny_transformer_world/world.py) and [dataset](data/week2_little_world_dataset.json) |
 | 3 | Standalone simulator verification | Complete | [Copy-and-run simulator](week3_simulator.py) and [research log](docs/research_log/week_03.md) |
 | 4 | Balanced dataset generation | Complete | [Complete generator](generate_300_stories.py) and [300 validated stories](data/world_stories_300.json) |
+| 5 | Train/validation/test generation | Generator ready | [Standalone Week 5 generator](scripts/generate_week5_dataset.py) and [research log](docs/research_log/week_05.md) |
+| 6 | Full and specialized test generation | Generator ready | [Standalone Week 6 generator](scripts/generate_week6_full_dataset.py) and [research log](docs/research_log/week_06.md) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -42,6 +44,13 @@ entry point together in one complete Python file. It produces 300 stories
 balanced across all five answers and all four queried objects. See the
 [Week 4 research log](docs/research_log/week_04.md).
 
+The Week 5 and Week 6 generators are also complete, independently runnable
+Python files. Week 5 produces balanced train, validation, and standard test
+splits. Week 6 produces the full 30,000-example dataset, including long-story,
+paraphrase, and withheld-combination test sets plus a 100-example human-review
+sheet. Generated Week 5 and Week 6 data are reproducible outputs and are not
+committed to the repository.
+
 ## What is installed
 
 - PyTorch for the tiny transformer and GRU/LSTM baseline
@@ -59,6 +68,8 @@ Open a terminal in this folder and run:
 source .venv/bin/activate
 python3 week3_simulator.py
 python3 generate_300_stories.py
+python3 scripts/generate_week5_dataset.py
+python3 scripts/generate_week6_full_dataset.py
 python scripts/check_environment.py
 python scripts/generate_week2_dataset.py
 pytest

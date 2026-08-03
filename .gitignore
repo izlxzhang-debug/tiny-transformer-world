@@ -24,6 +24,8 @@ Passion Project Ideas_*.md
 # Generated project artifacts
 checkpoints/*
 data/generated/
+data/week5/
+data/week6_full_dataset/
 figures/generated/
 results/generated/
 
