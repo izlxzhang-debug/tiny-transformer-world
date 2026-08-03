@@ -12,7 +12,7 @@ This workspace supports the passion project:
 | 1 | Research question and scope | Complete | [Project proposal](docs/proposal.md) |
 | 2 | Formal world construction | Complete | [World simulator](src/tiny_transformer_world/world.py) and [dataset](data/week2_little_world_dataset.json) |
 | 3 | Standalone simulator verification | Complete | [Copy-and-run simulator](week3_simulator.py) and [research log](docs/research_log/week_03.md) |
-| 4 | Dataset generation | Not started | Generated training and test sets |
+| 4 | Balanced dataset generation | Complete | [Complete generator](generate_300_stories.py) and [300 validated stories](data/world_stories_300.json) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -37,6 +37,11 @@ python3 week3_simulator.py
 The program should print `All tests passed.` before showing the five world
 states and final answers.
 
+Week 4 keeps the simulator, generator, validation, statistics, and runnable
+entry point together in one complete Python file. It produces 300 stories
+balanced across all five answers and all four queried objects. See the
+[Week 4 research log](docs/research_log/week_04.md).
+
 ## What is installed
 
 - PyTorch for the tiny transformer and GRU/LSTM baseline
@@ -53,6 +58,7 @@ Open a terminal in this folder and run:
 ```bash
 source .venv/bin/activate
 python3 week3_simulator.py
+python3 generate_300_stories.py
 python scripts/check_environment.py
 python scripts/generate_week2_dataset.py
 pytest
