@@ -15,6 +15,7 @@ This workspace supports the passion project:
 | 4 | Balanced dataset generation | Complete | [Complete generator](generate_300_stories.py) and [300 validated stories](data/world_stories_300.json) |
 | 5 | Train/validation/test generation | Generator ready | [Standalone Week 5 generator](scripts/generate_week5_dataset.py) and [research log](docs/research_log/week_05.md) |
 | 6 | Full and specialized test generation | Generator ready | [Standalone Week 6 generator](scripts/generate_week6_full_dataset.py) and [research log](docs/research_log/week_06.md) |
+| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](train_tiny_transformer.py) and [research log](docs/research_log/week_08.md) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -51,6 +52,14 @@ paraphrase, and withheld-combination test sets plus a 100-example human-review
 sheet. Generated Week 5 and Week 6 data are reproducible outputs and are not
 committed to the repository.
 
+Week 8 implements a self-contained word-level PyTorch transformer with learned
+token and positional embeddings, explicit multi-head Q/K/V attention, padding
+masks, one or two transformer layers, carrier classification, and resumable
+checkpointing. Its balanced 100-example smoke test reached 99% memorization
+accuracy. This confirms that the training pipeline can fit a tiny dataset; it
+is not evidence of generalization or a learned reusable world model. See the
+[Week 8 research log](docs/research_log/week_08.md).
+
 ## What is installed
 
 - PyTorch for the tiny transformer and GRU/LSTM baseline
@@ -70,6 +79,7 @@ python3 week3_simulator.py
 python3 generate_300_stories.py
 python3 scripts/generate_week5_dataset.py
 python3 scripts/generate_week6_full_dataset.py
+python3 train_tiny_transformer.py
 python scripts/check_environment.py
 python scripts/generate_week2_dataset.py
 pytest
