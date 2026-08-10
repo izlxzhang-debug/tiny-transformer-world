@@ -28,6 +28,7 @@ data/week5/
 data/week6_full_dataset/
 figures/generated/
 results/generated/
+results/tiny_transformer_training*/
 
 # Keep optional placeholder files in generated directories
 !checkpoints/.gitkeep

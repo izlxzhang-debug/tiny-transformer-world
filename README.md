@@ -16,6 +16,7 @@ This workspace supports the passion project:
 | 5 | Train/validation/test generation | Generator ready | [Standalone Week 5 generator](scripts/generate_week5_dataset.py) and [research log](docs/research_log/week_05.md) |
 | 6 | Full and specialized test generation | Generator ready | [Standalone Week 6 generator](scripts/generate_week6_full_dataset.py) and [research log](docs/research_log/week_06.md) |
 | 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](train_tiny_transformer.py) and [research log](docs/research_log/week_08.md) |
+| 9 | Three-seed full training | Complete | [Week 9 package](week9/README.md) and [research log](docs/research_log/week_09.md) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -60,6 +61,12 @@ accuracy. This confirms that the training pipeline can fit a tiny dataset; it
 is not evidence of generalization or a learned reusable world model. See the
 [Week 8 research log](docs/research_log/week_08.md).
 
+Week 9 trains the tiny transformer on the complete 20,000-story training split
+with seeds 11, 22, and 33, evaluates all 2,000 validation stories after every
+epoch, saves best and final checkpoints, and checks overfitting, instability,
+class balance, and seed sensitivity. Mean final validation accuracy was 69.13%
+with a 0.65-point range across seeds. See the [Week 9 package](week9/README.md).
+
 ## What is installed
 
 - PyTorch for the tiny transformer and GRU/LSTM baseline
@@ -80,6 +87,7 @@ python3 generate_300_stories.py
 python3 scripts/generate_week5_dataset.py
 python3 scripts/generate_week6_full_dataset.py
 python3 train_tiny_transformer.py
+python3 week9/train_three_seed_transformer.py
 python scripts/check_environment.py
 python scripts/generate_week2_dataset.py
 pytest
