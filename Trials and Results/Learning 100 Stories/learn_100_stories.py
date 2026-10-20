@@ -12,7 +12,7 @@ This is intentionally one self-contained file. It implements:
 
 Run from the repository root:
 
-    python3 train_tiny_transformer.py
+    python3 'Trials and Results/Learning 100 Stories/learn_100_stories.py'
 
 The default experiment selects 20 examples for each of the five answers and
 trains until it reaches at least 98% accuracy on those same 100 examples.
@@ -71,6 +71,9 @@ def parse_args() -> argparse.Namespace:
         default="cpu",
         help="CPU is the portable, deterministic default.",
     )
+    parser.add_argument("--results-file", type=Path,
+        default=Path(__file__).resolve().with_name("results.json"),
+        help="Combined JSON results written beside this program by default.")
     return parser.parse_args()
 
 
@@ -86,15 +89,19 @@ def iter_dataset_records(path: Path, split: str | None = None):
     if path.is_file():
         source = path
     else:
-        root = Path(__file__).resolve().parent
-        if not (root / "Dataset").is_dir():
-            root = root.parent
-        allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-        source = root / "Dataset/Training and Harder Tests/dataset.json"
-        if path.parent.resolve() not in allowed or not source.is_file():
-            raise FileNotFoundError(
-                f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+        source = path.parent / "dataset.json"
+        if not source.is_file():
+            root = next(
+                (parent for parent in Path(__file__).resolve().parents
+                 if (parent / "Dataset").is_dir()),
+                Path.cwd(),
             )
+            allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
+            source = root / "Dataset/Training and Harder Tests/dataset.json"
+            if path.parent.resolve() not in allowed or not source.is_file():
+                raise FileNotFoundError(
+                    f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+                )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":
             bundle = json.load(handle)
@@ -430,6 +437,20 @@ def main() -> None:
         configuration,
         final_accuracy,
     )
+    result = {
+        "experiment": "Learning 100 Stories",
+        "configuration": configuration,
+        "epoch": final_epoch,
+        "training_accuracy": final_accuracy,
+        "training_loss": final_loss if math.isfinite(final_loss) else None,
+        "target_accuracy": args.target_accuracy,
+        "passed": final_accuracy >= args.target_accuracy,
+        "checkpoint": str(args.checkpoint),
+        "notes": ["Accuracy is measured on the same examples used for training.",
+                  "Memorization is a pipeline check, not a generalization result."],
+    }
+    args.results_file.parent.mkdir(parents=True, exist_ok=True)
+    args.results_file.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(f"Checkpoint: {args.checkpoint.resolve()}")
     if final_accuracy < args.target_accuracy:
         raise RuntimeError(

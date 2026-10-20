@@ -1,0 +1,2182 @@
+{
+  "experiment": "Testing New Stories",
+  "source_directories": [
+    "results/generalization_evaluation"
+  ],
+  "files": {
+    "results/generalization_evaluation/comparison_table.csv": [
+      {
+        "model": "majority_baseline",
+        "standard": "0.2",
+        "longer_stories": "0.2",
+        "withheld_pickup_triples": "0.2",
+        "new_character_names": "0.2",
+        "distractors": "0.2",
+        "paraphrases": "0.2",
+        "standard_std": "",
+        "longer_stories_std": "",
+        "withheld_pickup_triples_std": "",
+        "new_character_names_std": "",
+        "distractors_std": "",
+        "paraphrases_std": ""
+      },
+      {
+        "model": "bag_of_words",
+        "standard": "0.543",
+        "longer_stories": "0.413",
+        "withheld_pickup_triples": "0.4825",
+        "new_character_names": "0.2985",
+        "distractors": "0.43",
+        "paraphrases": "0.5",
+        "standard_std": "",
+        "longer_stories_std": "",
+        "withheld_pickup_triples_std": "",
+        "new_character_names_std": "",
+        "distractors_std": "",
+        "paraphrases_std": ""
+      },
+      {
+        "model": "tiny_transformer_seed_11",
+        "standard": "0.68",
+        "longer_stories": "0.441",
+        "withheld_pickup_triples": "0.6335",
+        "new_character_names": "0.2685",
+        "distractors": "0.5815",
+        "paraphrases": "0.594",
+        "standard_std": "",
+        "longer_stories_std": "",
+        "withheld_pickup_triples_std": "",
+        "new_character_names_std": "",
+        "distractors_std": "",
+        "paraphrases_std": ""
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "standard": "0.69",
+        "longer_stories": "0.4945",
+        "withheld_pickup_triples": "0.6635",
+        "new_character_names": "0.2905",
+        "distractors": "0.595",
+        "paraphrases": "0.5625",
+        "standard_std": "",
+        "longer_stories_std": "",
+        "withheld_pickup_triples_std": "",
+        "new_character_names_std": "",
+        "distractors_std": "",
+        "paraphrases_std": ""
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "standard": "0.676",
+        "longer_stories": "0.452",
+        "withheld_pickup_triples": "0.6435",
+        "new_character_names": "0.301",
+        "distractors": "0.5695",
+        "paraphrases": "0.518",
+        "standard_std": "",
+        "longer_stories_std": "",
+        "withheld_pickup_triples_std": "",
+        "new_character_names_std": "",
+        "distractors_std": "",
+        "paraphrases_std": ""
+      },
+      {
+        "model": "tiny_transformer_mean",
+        "standard": "0.682",
+        "longer_stories": "0.4625",
+        "withheld_pickup_triples": "0.6468333333333333",
+        "new_character_names": "0.2866666666666667",
+        "distractors": "0.582",
+        "paraphrases": "0.5581666666666667",
+        "standard_std": "0.005887840577551853",
+        "longer_stories_std": "0.02306873786462247",
+        "withheld_pickup_triples_std": "0.012472191289246483",
+        "new_character_names_std": "0.013542115377181238",
+        "distractors_std": "0.010416333327999815",
+        "paraphrases_std": "0.031177805496146686"
+      }
+    ],
+    "results/generalization_evaluation/complete_results.json": {
+      "metadata": {
+        "duration_seconds": 13.683203575666994,
+        "device": "mps",
+        "checkpoint_name": "checkpoint_best.pt",
+        "checkpoint_metadata": [
+          {
+            "seed": 11,
+            "checkpoint_epoch": 20,
+            "learned_position_capacity": 142,
+            "evaluation_position_capacity": 179,
+            "position_embeddings_extended": true,
+            "path": "/Users/dz/Chatgpt/Transformer/results/tiny_transformer_training/seed_11/checkpoint_best.pt"
+          },
+          {
+            "seed": 22,
+            "checkpoint_epoch": 20,
+            "learned_position_capacity": 142,
+            "evaluation_position_capacity": 179,
+            "position_embeddings_extended": true,
+            "path": "/Users/dz/Chatgpt/Transformer/results/tiny_transformer_training/seed_22/checkpoint_best.pt"
+          },
+          {
+            "seed": 33,
+            "checkpoint_epoch": 19,
+            "learned_position_capacity": 142,
+            "evaluation_position_capacity": 179,
+            "position_embeddings_extended": true,
+            "path": "/Users/dz/Chatgpt/Transformer/results/tiny_transformer_training/seed_33/checkpoint_best.pt"
+          }
+        ],
+        "position_extension_policy": "repeat_last",
+        "baseline_training_examples": 20000,
+        "condition_examples": {
+          "standard": 2000,
+          "longer_stories": 2000,
+          "withheld_pickup_triples": 2000,
+          "new_character_names": 2000,
+          "distractors": 2000,
+          "paraphrases": 2000
+        },
+        "condition_definitions": {
+          "standard": "Canonical 1-6 event test split.",
+          "longer_stories": "Canonical 7-10 event test split.",
+          "withheld_pickup_triples": "Generator-withheld agent-object-destination pickup triples. The training set contains the corresponding person-object pairs at other destinations, so this is not a true unseen-pair test.",
+          "new_character_names": "Standard stories with {'Lammy': 'Orion', 'Anneena': 'Bianca', 'Jade': 'Cyrus', 'Penguin': 'Della'}; the fixed output classes retain their original agent-slot meanings. All genuinely new word tokens map to <unk> for the transformer.",
+          "distractors": "A paired transformation of every standard story with one extra simulator-valid event proven not to change the queried carrier.",
+          "paraphrases": "Dedicated paraphrase test split."
+        },
+        "majority_label": "Lammy",
+        "bag_of_words_vocabulary_size": 29
+      },
+      "comparison_table": [
+        {
+          "model": "majority_baseline",
+          "standard": 0.2,
+          "longer_stories": 0.2,
+          "withheld_pickup_triples": 0.2,
+          "new_character_names": 0.2,
+          "distractors": 0.2,
+          "paraphrases": 0.2
+        },
+        {
+          "model": "bag_of_words",
+          "standard": 0.543,
+          "longer_stories": 0.413,
+          "withheld_pickup_triples": 0.4825,
+          "new_character_names": 0.2985,
+          "distractors": 0.43,
+          "paraphrases": 0.5
+        },
+        {
+          "model": "tiny_transformer_seed_11",
+          "standard": 0.68,
+          "longer_stories": 0.441,
+          "withheld_pickup_triples": 0.6335,
+          "new_character_names": 0.2685,
+          "distractors": 0.5815,
+          "paraphrases": 0.594
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "standard": 0.69,
+          "longer_stories": 0.4945,
+          "withheld_pickup_triples": 0.6635,
+          "new_character_names": 0.2905,
+          "distractors": 0.595,
+          "paraphrases": 0.5625
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "standard": 0.676,
+          "longer_stories": 0.452,
+          "withheld_pickup_triples": 0.6435,
+          "new_character_names": 0.301,
+          "distractors": 0.5695,
+          "paraphrases": 0.518
+        },
+        {
+          "model": "tiny_transformer_mean",
+          "standard": 0.682,
+          "standard_std": 0.005887840577551853,
+          "longer_stories": 0.4625,
+          "longer_stories_std": 0.02306873786462247,
+          "withheld_pickup_triples": 0.6468333333333333,
+          "withheld_pickup_triples_std": 0.012472191289246483,
+          "new_character_names": 0.2866666666666667,
+          "new_character_names_std": 0.013542115377181238,
+          "distractors": 0.582,
+          "distractors_std": 0.010416333327999815,
+          "paraphrases": 0.5581666666666667,
+          "paraphrases_std": 0.031177805496146686
+        }
+      ],
+      "details": [
+        {
+          "model": "tiny_transformer_seed_11",
+          "model_family": "transformer",
+          "seed": 11,
+          "condition": "standard",
+          "condition_title": "Standard stories",
+          "examples": 2000,
+          "correct": 1360,
+          "accuracy": 0.68,
+          "unknown_token_rate": 0.0,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 329,
+              "Anneena": 18,
+              "Jade": 12,
+              "Penguin": 40,
+              "Nobody": 1
+            },
+            "Anneena": {
+              "Lammy": 33,
+              "Anneena": 318,
+              "Jade": 27,
+              "Penguin": 22,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 60,
+              "Anneena": 36,
+              "Jade": 253,
+              "Penguin": 51,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 10,
+              "Anneena": 39,
+              "Jade": 13,
+              "Penguin": 338,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 68,
+              "Anneena": 86,
+              "Jade": 59,
+              "Penguin": 65,
+              "Nobody": 122
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 500,
+            "Anneena": 497,
+            "Jade": 364,
+            "Nobody": 123,
+            "Penguin": 516
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_11",
+          "model_family": "transformer",
+          "seed": 11,
+          "condition": "longer_stories",
+          "condition_title": "Longer stories",
+          "examples": 2000,
+          "correct": 882,
+          "accuracy": 0.441,
+          "unknown_token_rate": 0.016888551300343176,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 221,
+              "Anneena": 38,
+              "Jade": 31,
+              "Penguin": 110,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 79,
+              "Anneena": 194,
+              "Jade": 45,
+              "Penguin": 82,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 74,
+              "Anneena": 50,
+              "Jade": 166,
+              "Penguin": 110,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 43,
+              "Anneena": 51,
+              "Jade": 25,
+              "Penguin": 281,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 98,
+              "Anneena": 82,
+              "Jade": 81,
+              "Penguin": 119,
+              "Nobody": 20
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 702,
+            "Jade": 348,
+            "Lammy": 515,
+            "Anneena": 415,
+            "Nobody": 20
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_11",
+          "model_family": "transformer",
+          "seed": 11,
+          "condition": "withheld_pickup_triples",
+          "condition_title": "Withheld pickup triples",
+          "examples": 2000,
+          "correct": 1267,
+          "accuracy": 0.6335,
+          "unknown_token_rate": 0.0,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 307,
+              "Anneena": 21,
+              "Jade": 17,
+              "Penguin": 52,
+              "Nobody": 3
+            },
+            "Anneena": {
+              "Lammy": 52,
+              "Anneena": 309,
+              "Jade": 18,
+              "Penguin": 21,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 47,
+              "Anneena": 32,
+              "Jade": 261,
+              "Penguin": 60,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 12,
+              "Anneena": 43,
+              "Jade": 9,
+              "Penguin": 336,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 95,
+              "Anneena": 78,
+              "Jade": 71,
+              "Penguin": 102,
+              "Nobody": 54
+            }
+          },
+          "prediction_counts": {
+            "Anneena": 483,
+            "Nobody": 57,
+            "Penguin": 571,
+            "Lammy": 513,
+            "Jade": 376
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_11",
+          "model_family": "transformer",
+          "seed": 11,
+          "condition": "new_character_names",
+          "condition_title": "New-name OOV stress test",
+          "examples": 2000,
+          "correct": 537,
+          "accuracy": 0.2685,
+          "unknown_token_rate": 0.07554616547089807,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 0,
+              "Anneena": 15,
+              "Jade": 0,
+              "Penguin": 376,
+              "Nobody": 9
+            },
+            "Anneena": {
+              "Lammy": 1,
+              "Anneena": 21,
+              "Jade": 1,
+              "Penguin": 366,
+              "Nobody": 11
+            },
+            "Jade": {
+              "Lammy": 3,
+              "Anneena": 16,
+              "Jade": 0,
+              "Penguin": 367,
+              "Nobody": 14
+            },
+            "Penguin": {
+              "Lammy": 1,
+              "Anneena": 15,
+              "Jade": 0,
+              "Penguin": 373,
+              "Nobody": 11
+            },
+            "Nobody": {
+              "Lammy": 0,
+              "Anneena": 14,
+              "Jade": 0,
+              "Penguin": 243,
+              "Nobody": 143
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 1725,
+            "Nobody": 188,
+            "Anneena": 81,
+            "Lammy": 5,
+            "Jade": 1
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_11",
+          "model_family": "transformer",
+          "seed": 11,
+          "condition": "distractors",
+          "condition_title": "Controlled distractor event",
+          "examples": 2000,
+          "correct": 1163,
+          "accuracy": 0.5815,
+          "unknown_token_rate": 0.0017437026717299958,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 300,
+              "Anneena": 47,
+              "Jade": 12,
+              "Penguin": 41,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 71,
+              "Anneena": 280,
+              "Jade": 26,
+              "Penguin": 23,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 112,
+              "Anneena": 30,
+              "Jade": 212,
+              "Penguin": 46,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 35,
+              "Anneena": 32,
+              "Jade": 14,
+              "Penguin": 319,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 167,
+              "Anneena": 72,
+              "Jade": 47,
+              "Penguin": 62,
+              "Nobody": 52
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 491,
+            "Lammy": 685,
+            "Anneena": 461,
+            "Nobody": 52,
+            "Jade": 311
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_11",
+          "model_family": "transformer",
+          "seed": 11,
+          "condition": "paraphrases",
+          "condition_title": "Paraphrases",
+          "examples": 2000,
+          "correct": 1188,
+          "accuracy": 0.594,
+          "unknown_token_rate": 0.21502146848771225,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 286,
+              "Anneena": 25,
+              "Jade": 30,
+              "Penguin": 45,
+              "Nobody": 14
+            },
+            "Anneena": {
+              "Lammy": 52,
+              "Anneena": 244,
+              "Jade": 57,
+              "Penguin": 40,
+              "Nobody": 7
+            },
+            "Jade": {
+              "Lammy": 49,
+              "Anneena": 19,
+              "Jade": 269,
+              "Penguin": 51,
+              "Nobody": 12
+            },
+            "Penguin": {
+              "Lammy": 30,
+              "Anneena": 37,
+              "Jade": 19,
+              "Penguin": 298,
+              "Nobody": 16
+            },
+            "Nobody": {
+              "Lammy": 85,
+              "Anneena": 60,
+              "Jade": 81,
+              "Penguin": 83,
+              "Nobody": 91
+            }
+          },
+          "prediction_counts": {
+            "Nobody": 140,
+            "Anneena": 385,
+            "Penguin": 517,
+            "Lammy": 502,
+            "Jade": 456
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "model_family": "transformer",
+          "seed": 22,
+          "condition": "standard",
+          "condition_title": "Standard stories",
+          "examples": 2000,
+          "correct": 1380,
+          "accuracy": 0.69,
+          "unknown_token_rate": 0.0,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 292,
+              "Anneena": 21,
+              "Jade": 34,
+              "Penguin": 38,
+              "Nobody": 15
+            },
+            "Anneena": {
+              "Lammy": 22,
+              "Anneena": 301,
+              "Jade": 45,
+              "Penguin": 23,
+              "Nobody": 9
+            },
+            "Jade": {
+              "Lammy": 29,
+              "Anneena": 19,
+              "Jade": 319,
+              "Penguin": 20,
+              "Nobody": 13
+            },
+            "Penguin": {
+              "Lammy": 9,
+              "Anneena": 16,
+              "Jade": 44,
+              "Penguin": 323,
+              "Nobody": 8
+            },
+            "Nobody": {
+              "Lammy": 53,
+              "Anneena": 75,
+              "Jade": 67,
+              "Penguin": 60,
+              "Nobody": 145
+            }
+          },
+          "prediction_counts": {
+            "Jade": 509,
+            "Nobody": 190,
+            "Anneena": 432,
+            "Lammy": 405,
+            "Penguin": 464
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "model_family": "transformer",
+          "seed": 22,
+          "condition": "longer_stories",
+          "condition_title": "Longer stories",
+          "examples": 2000,
+          "correct": 989,
+          "accuracy": 0.4945,
+          "unknown_token_rate": 0.016888551300343176,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 210,
+              "Anneena": 43,
+              "Jade": 54,
+              "Penguin": 83,
+              "Nobody": 10
+            },
+            "Anneena": {
+              "Lammy": 65,
+              "Anneena": 193,
+              "Jade": 60,
+              "Penguin": 78,
+              "Nobody": 4
+            },
+            "Jade": {
+              "Lammy": 51,
+              "Anneena": 36,
+              "Jade": 257,
+              "Penguin": 50,
+              "Nobody": 6
+            },
+            "Penguin": {
+              "Lammy": 34,
+              "Anneena": 51,
+              "Jade": 63,
+              "Penguin": 249,
+              "Nobody": 3
+            },
+            "Nobody": {
+              "Lammy": 69,
+              "Anneena": 76,
+              "Jade": 97,
+              "Penguin": 78,
+              "Nobody": 80
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 538,
+            "Jade": 531,
+            "Lammy": 429,
+            "Nobody": 103,
+            "Anneena": 399
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "model_family": "transformer",
+          "seed": 22,
+          "condition": "withheld_pickup_triples",
+          "condition_title": "Withheld pickup triples",
+          "examples": 2000,
+          "correct": 1327,
+          "accuracy": 0.6635,
+          "unknown_token_rate": 0.0,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 290,
+              "Anneena": 24,
+              "Jade": 27,
+              "Penguin": 47,
+              "Nobody": 12
+            },
+            "Anneena": {
+              "Lammy": 37,
+              "Anneena": 287,
+              "Jade": 38,
+              "Penguin": 32,
+              "Nobody": 6
+            },
+            "Jade": {
+              "Lammy": 22,
+              "Anneena": 8,
+              "Jade": 347,
+              "Penguin": 17,
+              "Nobody": 6
+            },
+            "Penguin": {
+              "Lammy": 8,
+              "Anneena": 24,
+              "Jade": 34,
+              "Penguin": 328,
+              "Nobody": 6
+            },
+            "Nobody": {
+              "Lammy": 75,
+              "Anneena": 71,
+              "Jade": 96,
+              "Penguin": 83,
+              "Nobody": 75
+            }
+          },
+          "prediction_counts": {
+            "Anneena": 414,
+            "Nobody": 105,
+            "Penguin": 507,
+            "Lammy": 432,
+            "Jade": 542
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "model_family": "transformer",
+          "seed": 22,
+          "condition": "new_character_names",
+          "condition_title": "New-name OOV stress test",
+          "examples": 2000,
+          "correct": 581,
+          "accuracy": 0.2905,
+          "unknown_token_rate": 0.07554616547089807,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 107,
+              "Anneena": 74,
+              "Jade": 127,
+              "Penguin": 38,
+              "Nobody": 54
+            },
+            "Anneena": {
+              "Lammy": 106,
+              "Anneena": 79,
+              "Jade": 125,
+              "Penguin": 31,
+              "Nobody": 59
+            },
+            "Jade": {
+              "Lammy": 110,
+              "Anneena": 64,
+              "Jade": 129,
+              "Penguin": 32,
+              "Nobody": 65
+            },
+            "Penguin": {
+              "Lammy": 118,
+              "Anneena": 74,
+              "Jade": 124,
+              "Penguin": 27,
+              "Nobody": 57
+            },
+            "Nobody": {
+              "Lammy": 32,
+              "Anneena": 61,
+              "Jade": 61,
+              "Penguin": 7,
+              "Nobody": 239
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 135,
+            "Nobody": 474,
+            "Jade": 566,
+            "Anneena": 352,
+            "Lammy": 473
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "model_family": "transformer",
+          "seed": 22,
+          "condition": "distractors",
+          "condition_title": "Controlled distractor event",
+          "examples": 2000,
+          "correct": 1190,
+          "accuracy": 0.595,
+          "unknown_token_rate": 0.0017437026717299958,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 264,
+              "Anneena": 52,
+              "Jade": 38,
+              "Penguin": 41,
+              "Nobody": 5
+            },
+            "Anneena": {
+              "Lammy": 57,
+              "Anneena": 271,
+              "Jade": 42,
+              "Penguin": 27,
+              "Nobody": 3
+            },
+            "Jade": {
+              "Lammy": 72,
+              "Anneena": 22,
+              "Jade": 276,
+              "Penguin": 24,
+              "Nobody": 6
+            },
+            "Penguin": {
+              "Lammy": 34,
+              "Anneena": 16,
+              "Jade": 40,
+              "Penguin": 307,
+              "Nobody": 3
+            },
+            "Nobody": {
+              "Lammy": 149,
+              "Anneena": 59,
+              "Jade": 58,
+              "Penguin": 62,
+              "Nobody": 72
+            }
+          },
+          "prediction_counts": {
+            "Jade": 454,
+            "Nobody": 89,
+            "Anneena": 420,
+            "Lammy": 576,
+            "Penguin": 461
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_22",
+          "model_family": "transformer",
+          "seed": 22,
+          "condition": "paraphrases",
+          "condition_title": "Paraphrases",
+          "examples": 2000,
+          "correct": 1125,
+          "accuracy": 0.5625,
+          "unknown_token_rate": 0.21502146848771225,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 287,
+              "Anneena": 39,
+              "Jade": 35,
+              "Penguin": 34,
+              "Nobody": 5
+            },
+            "Anneena": {
+              "Lammy": 35,
+              "Anneena": 286,
+              "Jade": 50,
+              "Penguin": 28,
+              "Nobody": 1
+            },
+            "Jade": {
+              "Lammy": 49,
+              "Anneena": 45,
+              "Jade": 281,
+              "Penguin": 25,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 50,
+              "Anneena": 69,
+              "Jade": 35,
+              "Penguin": 241,
+              "Nobody": 5
+            },
+            "Nobody": {
+              "Lammy": 113,
+              "Anneena": 100,
+              "Jade": 94,
+              "Penguin": 63,
+              "Nobody": 30
+            }
+          },
+          "prediction_counts": {
+            "Nobody": 41,
+            "Anneena": 539,
+            "Penguin": 391,
+            "Lammy": 534,
+            "Jade": 495
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "model_family": "transformer",
+          "seed": 33,
+          "condition": "standard",
+          "condition_title": "Standard stories",
+          "examples": 2000,
+          "correct": 1352,
+          "accuracy": 0.676,
+          "unknown_token_rate": 0.0,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 304,
+              "Anneena": 14,
+              "Jade": 68,
+              "Penguin": 13,
+              "Nobody": 1
+            },
+            "Anneena": {
+              "Lammy": 35,
+              "Anneena": 306,
+              "Jade": 21,
+              "Penguin": 33,
+              "Nobody": 5
+            },
+            "Jade": {
+              "Lammy": 20,
+              "Anneena": 39,
+              "Jade": 290,
+              "Penguin": 44,
+              "Nobody": 7
+            },
+            "Penguin": {
+              "Lammy": 32,
+              "Anneena": 26,
+              "Jade": 38,
+              "Penguin": 301,
+              "Nobody": 3
+            },
+            "Nobody": {
+              "Lammy": 56,
+              "Anneena": 74,
+              "Jade": 60,
+              "Penguin": 59,
+              "Nobody": 151
+            }
+          },
+          "prediction_counts": {
+            "Jade": 477,
+            "Anneena": 459,
+            "Penguin": 450,
+            "Nobody": 167,
+            "Lammy": 447
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "model_family": "transformer",
+          "seed": 33,
+          "condition": "longer_stories",
+          "condition_title": "Longer stories",
+          "examples": 2000,
+          "correct": 904,
+          "accuracy": 0.452,
+          "unknown_token_rate": 0.016888551300343176,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 211,
+              "Anneena": 32,
+              "Jade": 69,
+              "Penguin": 78,
+              "Nobody": 10
+            },
+            "Anneena": {
+              "Lammy": 62,
+              "Anneena": 180,
+              "Jade": 53,
+              "Penguin": 91,
+              "Nobody": 14
+            },
+            "Jade": {
+              "Lammy": 46,
+              "Anneena": 51,
+              "Jade": 219,
+              "Penguin": 77,
+              "Nobody": 7
+            },
+            "Penguin": {
+              "Lammy": 45,
+              "Anneena": 51,
+              "Jade": 57,
+              "Penguin": 241,
+              "Nobody": 6
+            },
+            "Nobody": {
+              "Lammy": 75,
+              "Anneena": 84,
+              "Jade": 94,
+              "Penguin": 94,
+              "Nobody": 53
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 581,
+            "Jade": 492,
+            "Lammy": 439,
+            "Anneena": 398,
+            "Nobody": 90
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "model_family": "transformer",
+          "seed": 33,
+          "condition": "withheld_pickup_triples",
+          "condition_title": "Withheld pickup triples",
+          "examples": 2000,
+          "correct": 1287,
+          "accuracy": 0.6435,
+          "unknown_token_rate": 0.0,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 312,
+              "Anneena": 14,
+              "Jade": 51,
+              "Penguin": 17,
+              "Nobody": 6
+            },
+            "Anneena": {
+              "Lammy": 53,
+              "Anneena": 288,
+              "Jade": 21,
+              "Penguin": 36,
+              "Nobody": 2
+            },
+            "Jade": {
+              "Lammy": 18,
+              "Anneena": 40,
+              "Jade": 312,
+              "Penguin": 28,
+              "Nobody": 2
+            },
+            "Penguin": {
+              "Lammy": 33,
+              "Anneena": 30,
+              "Jade": 32,
+              "Penguin": 303,
+              "Nobody": 2
+            },
+            "Nobody": {
+              "Lammy": 87,
+              "Anneena": 68,
+              "Jade": 87,
+              "Penguin": 86,
+              "Nobody": 72
+            }
+          },
+          "prediction_counts": {
+            "Anneena": 440,
+            "Nobody": 84,
+            "Lammy": 503,
+            "Jade": 503,
+            "Penguin": 470
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "model_family": "transformer",
+          "seed": 33,
+          "condition": "new_character_names",
+          "condition_title": "New-name OOV stress test",
+          "examples": 2000,
+          "correct": 602,
+          "accuracy": 0.301,
+          "unknown_token_rate": 0.07554616547089807,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 20,
+              "Anneena": 0,
+              "Jade": 20,
+              "Penguin": 308,
+              "Nobody": 52
+            },
+            "Anneena": {
+              "Lammy": 17,
+              "Anneena": 0,
+              "Jade": 17,
+              "Penguin": 315,
+              "Nobody": 51
+            },
+            "Jade": {
+              "Lammy": 12,
+              "Anneena": 0,
+              "Jade": 18,
+              "Penguin": 314,
+              "Nobody": 56
+            },
+            "Penguin": {
+              "Lammy": 16,
+              "Anneena": 0,
+              "Jade": 28,
+              "Penguin": 311,
+              "Nobody": 45
+            },
+            "Nobody": {
+              "Lammy": 3,
+              "Anneena": 0,
+              "Jade": 6,
+              "Penguin": 138,
+              "Nobody": 253
+            }
+          },
+          "prediction_counts": {
+            "Jade": 89,
+            "Penguin": 1386,
+            "Nobody": 457,
+            "Lammy": 68
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "model_family": "transformer",
+          "seed": 33,
+          "condition": "distractors",
+          "condition_title": "Controlled distractor event",
+          "examples": 2000,
+          "correct": 1139,
+          "accuracy": 0.5695,
+          "unknown_token_rate": 0.0017437026717299958,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 291,
+              "Anneena": 33,
+              "Jade": 59,
+              "Penguin": 16,
+              "Nobody": 1
+            },
+            "Anneena": {
+              "Lammy": 95,
+              "Anneena": 246,
+              "Jade": 24,
+              "Penguin": 32,
+              "Nobody": 3
+            },
+            "Jade": {
+              "Lammy": 47,
+              "Anneena": 28,
+              "Jade": 289,
+              "Penguin": 34,
+              "Nobody": 2
+            },
+            "Penguin": {
+              "Lammy": 85,
+              "Anneena": 20,
+              "Jade": 42,
+              "Penguin": 253,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 172,
+              "Anneena": 56,
+              "Jade": 59,
+              "Penguin": 53,
+              "Nobody": 60
+            }
+          },
+          "prediction_counts": {
+            "Jade": 473,
+            "Anneena": 383,
+            "Penguin": 388,
+            "Nobody": 66,
+            "Lammy": 690
+          }
+        },
+        {
+          "model": "tiny_transformer_seed_33",
+          "model_family": "transformer",
+          "seed": 33,
+          "condition": "paraphrases",
+          "condition_title": "Paraphrases",
+          "examples": 2000,
+          "correct": 1036,
+          "accuracy": 0.518,
+          "unknown_token_rate": 0.21502146848771225,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 256,
+              "Anneena": 37,
+              "Jade": 34,
+              "Penguin": 56,
+              "Nobody": 17
+            },
+            "Anneena": {
+              "Lammy": 50,
+              "Anneena": 214,
+              "Jade": 38,
+              "Penguin": 82,
+              "Nobody": 16
+            },
+            "Jade": {
+              "Lammy": 55,
+              "Anneena": 58,
+              "Jade": 184,
+              "Penguin": 86,
+              "Nobody": 17
+            },
+            "Penguin": {
+              "Lammy": 44,
+              "Anneena": 40,
+              "Jade": 20,
+              "Penguin": 281,
+              "Nobody": 15
+            },
+            "Nobody": {
+              "Lammy": 71,
+              "Anneena": 71,
+              "Jade": 60,
+              "Penguin": 97,
+              "Nobody": 101
+            }
+          },
+          "prediction_counts": {
+            "Nobody": 166,
+            "Anneena": 420,
+            "Lammy": 476,
+            "Penguin": 602,
+            "Jade": 336
+          }
+        },
+        {
+          "model": "majority_baseline",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "standard",
+          "condition_title": "Standard stories",
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 2000
+          }
+        },
+        {
+          "model": "bag_of_words",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "standard",
+          "condition_title": "Standard stories",
+          "examples": 2000,
+          "correct": 1086,
+          "accuracy": 0.543,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 207,
+              "Anneena": 38,
+              "Jade": 47,
+              "Penguin": 56,
+              "Nobody": 52
+            },
+            "Anneena": {
+              "Lammy": 54,
+              "Anneena": 206,
+              "Jade": 46,
+              "Penguin": 49,
+              "Nobody": 45
+            },
+            "Jade": {
+              "Lammy": 62,
+              "Anneena": 42,
+              "Jade": 207,
+              "Penguin": 34,
+              "Nobody": 55
+            },
+            "Penguin": {
+              "Lammy": 49,
+              "Anneena": 34,
+              "Jade": 57,
+              "Penguin": 219,
+              "Nobody": 41
+            },
+            "Nobody": {
+              "Lammy": 36,
+              "Anneena": 41,
+              "Jade": 39,
+              "Penguin": 37,
+              "Nobody": 247
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 408,
+            "Nobody": 440,
+            "Jade": 396,
+            "Anneena": 361,
+            "Penguin": 395
+          }
+        },
+        {
+          "model": "majority_baseline",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "longer_stories",
+          "condition_title": "Longer stories",
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 2000
+          }
+        },
+        {
+          "model": "bag_of_words",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "longer_stories",
+          "condition_title": "Longer stories",
+          "examples": 2000,
+          "correct": 826,
+          "accuracy": 0.413,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 164,
+              "Anneena": 57,
+              "Jade": 81,
+              "Penguin": 75,
+              "Nobody": 23
+            },
+            "Anneena": {
+              "Lammy": 75,
+              "Anneena": 150,
+              "Jade": 74,
+              "Penguin": 71,
+              "Nobody": 30
+            },
+            "Jade": {
+              "Lammy": 63,
+              "Anneena": 63,
+              "Jade": 184,
+              "Penguin": 68,
+              "Nobody": 22
+            },
+            "Penguin": {
+              "Lammy": 60,
+              "Anneena": 73,
+              "Jade": 80,
+              "Penguin": 164,
+              "Nobody": 23
+            },
+            "Nobody": {
+              "Lammy": 53,
+              "Anneena": 60,
+              "Jade": 76,
+              "Penguin": 47,
+              "Nobody": 164
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 425,
+            "Jade": 495,
+            "Anneena": 403,
+            "Nobody": 262,
+            "Lammy": 415
+          }
+        },
+        {
+          "model": "majority_baseline",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "withheld_pickup_triples",
+          "condition_title": "Withheld pickup triples",
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 2000
+          }
+        },
+        {
+          "model": "bag_of_words",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "withheld_pickup_triples",
+          "condition_title": "Withheld pickup triples",
+          "examples": 2000,
+          "correct": 965,
+          "accuracy": 0.4825,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 206,
+              "Anneena": 55,
+              "Jade": 53,
+              "Penguin": 62,
+              "Nobody": 24
+            },
+            "Anneena": {
+              "Lammy": 76,
+              "Anneena": 199,
+              "Jade": 52,
+              "Penguin": 57,
+              "Nobody": 16
+            },
+            "Jade": {
+              "Lammy": 53,
+              "Anneena": 62,
+              "Jade": 212,
+              "Penguin": 50,
+              "Nobody": 23
+            },
+            "Penguin": {
+              "Lammy": 51,
+              "Anneena": 59,
+              "Jade": 66,
+              "Penguin": 201,
+              "Nobody": 23
+            },
+            "Nobody": {
+              "Lammy": 69,
+              "Anneena": 61,
+              "Jade": 63,
+              "Penguin": 60,
+              "Nobody": 147
+            }
+          },
+          "prediction_counts": {
+            "Penguin": 430,
+            "Nobody": 233,
+            "Anneena": 436,
+            "Lammy": 455,
+            "Jade": 446
+          }
+        },
+        {
+          "model": "majority_baseline",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "new_character_names",
+          "condition_title": "New-name OOV stress test",
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 2000
+          }
+        },
+        {
+          "model": "bag_of_words",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "new_character_names",
+          "condition_title": "New-name OOV stress test",
+          "examples": 2000,
+          "correct": 597,
+          "accuracy": 0.2985,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 113,
+              "Anneena": 66,
+              "Jade": 176,
+              "Penguin": 45,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 100,
+              "Anneena": 92,
+              "Jade": 151,
+              "Penguin": 57,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 97,
+              "Anneena": 53,
+              "Jade": 194,
+              "Penguin": 56,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 91,
+              "Anneena": 71,
+              "Jade": 162,
+              "Penguin": 76,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 87,
+              "Anneena": 58,
+              "Jade": 92,
+              "Penguin": 41,
+              "Nobody": 122
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 488,
+            "Penguin": 275,
+            "Jade": 775,
+            "Anneena": 340,
+            "Nobody": 122
+          }
+        },
+        {
+          "model": "majority_baseline",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "distractors",
+          "condition_title": "Controlled distractor event",
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 2000
+          }
+        },
+        {
+          "model": "bag_of_words",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "distractors",
+          "condition_title": "Controlled distractor event",
+          "examples": 2000,
+          "correct": 860,
+          "accuracy": 0.43,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 167,
+              "Anneena": 117,
+              "Jade": 49,
+              "Penguin": 43,
+              "Nobody": 24
+            },
+            "Anneena": {
+              "Lammy": 117,
+              "Anneena": 163,
+              "Jade": 41,
+              "Penguin": 48,
+              "Nobody": 31
+            },
+            "Jade": {
+              "Lammy": 132,
+              "Anneena": 26,
+              "Jade": 179,
+              "Penguin": 29,
+              "Nobody": 34
+            },
+            "Penguin": {
+              "Lammy": 106,
+              "Anneena": 32,
+              "Jade": 51,
+              "Penguin": 189,
+              "Nobody": 22
+            },
+            "Nobody": {
+              "Lammy": 110,
+              "Anneena": 45,
+              "Jade": 40,
+              "Penguin": 43,
+              "Nobody": 162
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 632,
+            "Nobody": 273,
+            "Jade": 360,
+            "Anneena": 383,
+            "Penguin": 352
+          }
+        },
+        {
+          "model": "majority_baseline",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "paraphrases",
+          "condition_title": "Paraphrases",
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Anneena": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Jade": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Penguin": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            },
+            "Nobody": {
+              "Lammy": 400,
+              "Anneena": 0,
+              "Jade": 0,
+              "Penguin": 0,
+              "Nobody": 0
+            }
+          },
+          "prediction_counts": {
+            "Lammy": 2000
+          }
+        },
+        {
+          "model": "bag_of_words",
+          "model_family": "baseline",
+          "seed": null,
+          "condition": "paraphrases",
+          "condition_title": "Paraphrases",
+          "examples": 2000,
+          "correct": 1000,
+          "accuracy": 0.5,
+          "unknown_token_rate": null,
+          "confusion_matrix": {
+            "Lammy": {
+              "Lammy": 186,
+              "Anneena": 23,
+              "Jade": 28,
+              "Penguin": 44,
+              "Nobody": 119
+            },
+            "Anneena": {
+              "Lammy": 38,
+              "Anneena": 179,
+              "Jade": 49,
+              "Penguin": 36,
+              "Nobody": 98
+            },
+            "Jade": {
+              "Lammy": 44,
+              "Anneena": 27,
+              "Jade": 188,
+              "Penguin": 32,
+              "Nobody": 109
+            },
+            "Penguin": {
+              "Lammy": 35,
+              "Anneena": 22,
+              "Jade": 27,
+              "Penguin": 183,
+              "Nobody": 133
+            },
+            "Nobody": {
+              "Lammy": 31,
+              "Anneena": 32,
+              "Jade": 35,
+              "Penguin": 38,
+              "Nobody": 264
+            }
+          },
+          "prediction_counts": {
+            "Nobody": 723,
+            "Penguin": 333,
+            "Anneena": 283,
+            "Jade": 327,
+            "Lammy": 334
+          }
+        }
+      ]
+    },
+    "results/generalization_evaluation/detailed_results.csv": [
+      {
+        "model": "tiny_transformer_seed_11",
+        "model_family": "transformer",
+        "seed": "11",
+        "condition": "standard",
+        "condition_title": "Standard stories",
+        "examples": "2000",
+        "correct": "1360",
+        "accuracy": "0.68",
+        "unknown_token_rate": "0.0"
+      },
+      {
+        "model": "tiny_transformer_seed_11",
+        "model_family": "transformer",
+        "seed": "11",
+        "condition": "longer_stories",
+        "condition_title": "Longer stories",
+        "examples": "2000",
+        "correct": "882",
+        "accuracy": "0.441",
+        "unknown_token_rate": "0.016888551300343176"
+      },
+      {
+        "model": "tiny_transformer_seed_11",
+        "model_family": "transformer",
+        "seed": "11",
+        "condition": "withheld_pickup_triples",
+        "condition_title": "Withheld pickup triples",
+        "examples": "2000",
+        "correct": "1267",
+        "accuracy": "0.6335",
+        "unknown_token_rate": "0.0"
+      },
+      {
+        "model": "tiny_transformer_seed_11",
+        "model_family": "transformer",
+        "seed": "11",
+        "condition": "new_character_names",
+        "condition_title": "New-name OOV stress test",
+        "examples": "2000",
+        "correct": "537",
+        "accuracy": "0.2685",
+        "unknown_token_rate": "0.07554616547089807"
+      },
+      {
+        "model": "tiny_transformer_seed_11",
+        "model_family": "transformer",
+        "seed": "11",
+        "condition": "distractors",
+        "condition_title": "Controlled distractor event",
+        "examples": "2000",
+        "correct": "1163",
+        "accuracy": "0.5815",
+        "unknown_token_rate": "0.0017437026717299958"
+      },
+      {
+        "model": "tiny_transformer_seed_11",
+        "model_family": "transformer",
+        "seed": "11",
+        "condition": "paraphrases",
+        "condition_title": "Paraphrases",
+        "examples": "2000",
+        "correct": "1188",
+        "accuracy": "0.594",
+        "unknown_token_rate": "0.21502146848771225"
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "model_family": "transformer",
+        "seed": "22",
+        "condition": "standard",
+        "condition_title": "Standard stories",
+        "examples": "2000",
+        "correct": "1380",
+        "accuracy": "0.69",
+        "unknown_token_rate": "0.0"
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "model_family": "transformer",
+        "seed": "22",
+        "condition": "longer_stories",
+        "condition_title": "Longer stories",
+        "examples": "2000",
+        "correct": "989",
+        "accuracy": "0.4945",
+        "unknown_token_rate": "0.016888551300343176"
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "model_family": "transformer",
+        "seed": "22",
+        "condition": "withheld_pickup_triples",
+        "condition_title": "Withheld pickup triples",
+        "examples": "2000",
+        "correct": "1327",
+        "accuracy": "0.6635",
+        "unknown_token_rate": "0.0"
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "model_family": "transformer",
+        "seed": "22",
+        "condition": "new_character_names",
+        "condition_title": "New-name OOV stress test",
+        "examples": "2000",
+        "correct": "581",
+        "accuracy": "0.2905",
+        "unknown_token_rate": "0.07554616547089807"
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "model_family": "transformer",
+        "seed": "22",
+        "condition": "distractors",
+        "condition_title": "Controlled distractor event",
+        "examples": "2000",
+        "correct": "1190",
+        "accuracy": "0.595",
+        "unknown_token_rate": "0.0017437026717299958"
+      },
+      {
+        "model": "tiny_transformer_seed_22",
+        "model_family": "transformer",
+        "seed": "22",
+        "condition": "paraphrases",
+        "condition_title": "Paraphrases",
+        "examples": "2000",
+        "correct": "1125",
+        "accuracy": "0.5625",
+        "unknown_token_rate": "0.21502146848771225"
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "model_family": "transformer",
+        "seed": "33",
+        "condition": "standard",
+        "condition_title": "Standard stories",
+        "examples": "2000",
+        "correct": "1352",
+        "accuracy": "0.676",
+        "unknown_token_rate": "0.0"
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "model_family": "transformer",
+        "seed": "33",
+        "condition": "longer_stories",
+        "condition_title": "Longer stories",
+        "examples": "2000",
+        "correct": "904",
+        "accuracy": "0.452",
+        "unknown_token_rate": "0.016888551300343176"
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "model_family": "transformer",
+        "seed": "33",
+        "condition": "withheld_pickup_triples",
+        "condition_title": "Withheld pickup triples",
+        "examples": "2000",
+        "correct": "1287",
+        "accuracy": "0.6435",
+        "unknown_token_rate": "0.0"
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "model_family": "transformer",
+        "seed": "33",
+        "condition": "new_character_names",
+        "condition_title": "New-name OOV stress test",
+        "examples": "2000",
+        "correct": "602",
+        "accuracy": "0.301",
+        "unknown_token_rate": "0.07554616547089807"
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "model_family": "transformer",
+        "seed": "33",
+        "condition": "distractors",
+        "condition_title": "Controlled distractor event",
+        "examples": "2000",
+        "correct": "1139",
+        "accuracy": "0.5695",
+        "unknown_token_rate": "0.0017437026717299958"
+      },
+      {
+        "model": "tiny_transformer_seed_33",
+        "model_family": "transformer",
+        "seed": "33",
+        "condition": "paraphrases",
+        "condition_title": "Paraphrases",
+        "examples": "2000",
+        "correct": "1036",
+        "accuracy": "0.518",
+        "unknown_token_rate": "0.21502146848771225"
+      },
+      {
+        "model": "majority_baseline",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "standard",
+        "condition_title": "Standard stories",
+        "examples": "2000",
+        "correct": "400",
+        "accuracy": "0.2",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "bag_of_words",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "standard",
+        "condition_title": "Standard stories",
+        "examples": "2000",
+        "correct": "1086",
+        "accuracy": "0.543",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "majority_baseline",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "longer_stories",
+        "condition_title": "Longer stories",
+        "examples": "2000",
+        "correct": "400",
+        "accuracy": "0.2",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "bag_of_words",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "longer_stories",
+        "condition_title": "Longer stories",
+        "examples": "2000",
+        "correct": "826",
+        "accuracy": "0.413",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "majority_baseline",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "withheld_pickup_triples",
+        "condition_title": "Withheld pickup triples",
+        "examples": "2000",
+        "correct": "400",
+        "accuracy": "0.2",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "bag_of_words",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "withheld_pickup_triples",
+        "condition_title": "Withheld pickup triples",
+        "examples": "2000",
+        "correct": "965",
+        "accuracy": "0.4825",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "majority_baseline",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "new_character_names",
+        "condition_title": "New-name OOV stress test",
+        "examples": "2000",
+        "correct": "400",
+        "accuracy": "0.2",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "bag_of_words",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "new_character_names",
+        "condition_title": "New-name OOV stress test",
+        "examples": "2000",
+        "correct": "597",
+        "accuracy": "0.2985",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "majority_baseline",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "distractors",
+        "condition_title": "Controlled distractor event",
+        "examples": "2000",
+        "correct": "400",
+        "accuracy": "0.2",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "bag_of_words",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "distractors",
+        "condition_title": "Controlled distractor event",
+        "examples": "2000",
+        "correct": "860",
+        "accuracy": "0.43",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "majority_baseline",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "paraphrases",
+        "condition_title": "Paraphrases",
+        "examples": "2000",
+        "correct": "400",
+        "accuracy": "0.2",
+        "unknown_token_rate": ""
+      },
+      {
+        "model": "bag_of_words",
+        "model_family": "baseline",
+        "seed": "",
+        "condition": "paraphrases",
+        "condition_title": "Paraphrases",
+        "examples": "2000",
+        "correct": "1000",
+        "accuracy": "0.5",
+        "unknown_token_rate": ""
+      }
+    ]
+  },
+  "artifacts": [],
+  "hidden_state_metadata": {},
+  "notes": [
+    "Results were collected from the source files named below; no scores are inferred.",
+    "CSV values are preserved as text; JSON reports retain their original types.",
+    "Checkpoints, hidden vectors, and images are referenced, not embedded.",
+    "Use the recorded configuration to distinguish full runs from quick checks."
+  ]
+}

@@ -7,7 +7,7 @@
 ## Work completed
 
 - Implemented one self-contained PyTorch training program in
-  [`train_tiny_transformer.py`](../../train_tiny_transformer.py).
+  [`Trials and Results/Learning 100 Stories/learn_100_stories.py`](../../Trials%20and%20Results/Learning%20100%20Stories/learn_100_stories.py).
 - Built a lowercase word-level vocabulary from training stories only.
 - Added `<pad>`, `<unk>`, and `<cls>` tokens.
 - Added learned token and positional embeddings.
@@ -74,13 +74,13 @@ From the repository root:
 
 ```bash
 source .venv/bin/activate
-python3 train_tiny_transformer.py
+python3 'Trials and Results/Learning 100 Stories/learn_100_stories.py'
 ```
 
 Resume from the saved checkpoint with:
 
 ```bash
-python3 train_tiny_transformer.py --resume
+python3 'Trials and Results/Learning 100 Stories/learn_100_stories.py' --resume
 ```
 
 Generated checkpoint files remain outside version control.

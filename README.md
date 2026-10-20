@@ -15,8 +15,12 @@ This workspace supports the passion project:
 | 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/300%20Stories/generate_samples.py) and [300 validated stories](Dataset/300%20Stories/dataset.json) |
 | 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Test%20Stories/generate_splits.py) and [dataset](Dataset/Training%20and%20Test%20Stories/dataset.json) |
 | 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Harder%20Tests/generate_full_dataset.py) and [dataset](Dataset/Training%20and%20Harder%20Tests/dataset.json) |
-| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](train_tiny_transformer.py) and [research log](docs/research_log/week_08.md) |
-| 9 | Three-seed full training | Complete | [Week 9 package](week9/README.md) and [research log](docs/research_log/week_09.md) |
+| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](Trials%20and%20Results/Learning%20100%20Stories/learn_100_stories.py) and [research log](docs/research_log/week_08.md) |
+| 9 | Three-seed full training | Complete | [Week 9 package](docs/training_instructions.md) and [research log](docs/research_log/week_09.md) |
+| 10 | Generalization tests | Recorded results included | [Testing New Stories](Trials%20and%20Results/Testing%20New%20Stories/) |
+| 11 | Error analysis and model changes | Recorded results included | [Finding Mistakes](Trials%20and%20Results/Finding%20Mistakes/) |
+| 12 | Hidden vectors and probes | Recorded results included | [Looking Inside the Model](Trials%20and%20Results/Looking%20Inside%20the%20Model/) |
+| 13 | Activation interventions | Recorded results included | [Testing What the Model Uses](Trials%20and%20Results/Testing%20What%20the%20Model%20Uses/) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -91,7 +95,40 @@ Week 9 trains the tiny transformer on the complete 20,000-story training split
 with seeds 11, 22, and 33, evaluates all 2,000 validation stories after every
 epoch, saves best and final checkpoints, and checks overfitting, instability,
 class balance, and seed sensitivity. Mean final validation accuracy was 69.13%
-with a 0.65-point range across seeds. See the [Week 9 package](week9/README.md).
+with a 0.65-point range across seeds. See the [Week 9 package](docs/training_instructions.md).
+
+## Trials and Results
+
+Each of these folders contains one complete Python program and one
+`results.json` containing the results already recorded for that experiment:
+
+| Folder | What the program does | Original stage |
+|---|---|---|
+| `Learning 100 Stories` | Check whether the model can memorize a small set | Week 8 |
+| `Training the Model` | Train with three random seeds and compare the runs | Week 9 |
+| `Testing New Stories` | Test unfamiliar stories and compare with baselines | Week 10 |
+| `Finding Mistakes` | Examine wrong answers and test changes to the model | Week 11 |
+| `Looking Inside the Model` | Extract internal vectors and test what can be read from them | Week 12 |
+| `Testing What the Model Uses` | Change internal activations and measure the effect on answers | Week 13 |
+
+The programs include their model and analysis code without importing Python
+files from other project weeks. They require the installed libraries, the
+relevant story data, and, for later experiments, a trained checkpoint.
+Checkpoints and large hidden-vector files remain under `checkpoints/` and
+`results/` locally. They are referenced in the combined reports rather than
+uploaded inside these folders. On a fresh clone, run `Training the Model` to
+create the checkpoints needed for the later experiments.
+
+Existing JSON reports and CSV tables are preserved inside each `results.json`.
+The small memorization report comes from its saved checkpoint, which records
+final accuracy but not a per-epoch loss history. New runs refresh the adjacent
+report by default; use `--results-file` to save a new report elsewhere. Raw
+checkpoints, plots, and tables keep their existing output directories.
+
+`Looking Inside the Model` combines the old extraction and probe programs.
+Its default command runs both stages; `extract --help` and `probe --help`
+describe the individual stages. Probe scores show what information can be
+recovered and do not by themselves establish that the model uses it.
 
 ## What is installed
 
@@ -112,8 +149,8 @@ python3 'Dataset/Testing the Rules/check_rules.py'
 python3 'Dataset/300 Stories/generate_samples.py'
 python3 'Dataset/Training and Test Stories/generate_splits.py'
 python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'
-python3 train_tiny_transformer.py
-python3 week9/train_three_seed_transformer.py
+python3 'Trials and Results/Learning 100 Stories/learn_100_stories.py'
+python3 'Trials and Results/Training the Model/train_model.py'
 python scripts/check_environment.py
 python 'Dataset/Example Stories/generate_examples.py'
 pytest
@@ -130,6 +167,7 @@ deactivate
 
 ```text
 Dataset/       Weeks 2-6: one standalone .py and one dataset.json per week
+Trials and Results/  Experiments: one complete .py and one results.json each
 docs/          proposal, definitions, specifications, and weekly research logs
 src/           simulator, models, training, evaluation, and interpretability code
 tests/         simulator and dataset correctness tests

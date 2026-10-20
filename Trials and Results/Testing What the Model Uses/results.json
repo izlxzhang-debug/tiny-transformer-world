@@ -1,0 +1,2203 @@
+{
+  "experiment": "Testing What the Model Uses",
+  "source_directories": [
+    "results/activation_interventions"
+  ],
+  "files": {
+    "results/activation_interventions/intervention_report.json": {
+      "checkpoint": "/Users/dz/Chatgpt/Transformer/results/tiny_transformer_training/seed_11/checkpoint_best.pt",
+      "pair": {
+        "source_answer": "Lammy",
+        "target_answer": "Anneena",
+        "differing_token_positions": [
+          56
+        ],
+        "source_text": "Initial state:\nLammy is on Mars.\nAnneena is on Mars.\nJade is on Moon.\nPenguin is on Mars.\nThe hairbrush is lying on Mercury.\nThe sneakers is lying on Moon.\nThe glasses is lying on Mars.\nThe key is lying on Venus.\n\nEvents:\n1. Lammy travels to Venus and automatically picks up the key.\n\nQuestion: Who is carrying the key?",
+        "target_text": "Initial state:\nLammy is on Mars.\nAnneena is on Mars.\nJade is on Moon.\nPenguin is on Mars.\nThe hairbrush is lying on Mercury.\nThe sneakers is lying on Moon.\nThe glasses is lying on Mars.\nThe key is lying on Venus.\n\nEvents:\n1. Anneena travels to Venus and automatically picks up the key.\n\nQuestion: Who is carrying the key?",
+        "source_prediction": "Lammy",
+        "target_prediction": "Anneena",
+        "source_margin": 6.215401649475098,
+        "target_margin": -5.897329330444336
+      },
+      "top_sites": [
+        {
+          "layer": "final_norm",
+          "position": 0,
+          "token": "<cls>",
+          "effect": 1.0
+        },
+        {
+          "layer": "layer_2",
+          "position": 0,
+          "token": "<cls>",
+          "effect": 1.0
+        },
+        {
+          "layer": "embedding",
+          "position": 56,
+          "token": "anneena",
+          "effect": 1.0
+        },
+        {
+          "layer": "layer_1",
+          "position": 56,
+          "token": "anneena",
+          "effect": 0.9171893043439716
+        },
+        {
+          "layer": "layer_1",
+          "position": 0,
+          "token": "<cls>",
+          "effect": 0.08566245226109605
+        }
+      ],
+      "controls": {
+        "random_direction": {
+          "mean": 0.04722826972961988,
+          "std": 0.12216037549159794,
+          "mean_absolute": 0.09893090726887922,
+          "maximum_absolute": 0.3903800228153126
+        },
+        "random_layer": {
+          "mean": 0.48227223758788496,
+          "std": 0.4788751229089841,
+          "mean_absolute": 0.48227223758788496,
+          "maximum_absolute": 1.0
+        },
+        "random_token": {
+          "mean": 0.02,
+          "std": 0.13999999999999999,
+          "mean_absolute": 0.02,
+          "maximum_absolute": 1.0
+        },
+        "unrelated_property": {
+          "mean": 0.007063248521646006,
+          "std": 0.027956069078301306,
+          "mean_absolute": 0.007064097265760599,
+          "maximum_absolute": 0.11771655710020511
+        }
+      },
+      "interpretation": "Effect 1 means full restoration of the clean source-vs-target logit-margin difference; 0 means no change from the clean target. Negative and >1 effects are possible. Site ranking is exploratory because it is selected on this pair.",
+      "location_pair_warning": "With this checkpoint, 'key in garden' versus 'key in library' has the same carrier answer (Nobody), and garden/library are outside the trained vocabulary and output classes. A carrier-changing pair is therefore used."
+    },
+    "results/activation_interventions/patching_results.csv": [
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "0",
+        "token": "<cls>",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "1",
+        "token": "initial",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "2",
+        "token": "state",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "3",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "4",
+        "token": "lammy",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "5",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "6",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "7",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "8",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "9",
+        "token": "anneena",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "10",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "11",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "12",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "13",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "14",
+        "token": "jade",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "15",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "16",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "17",
+        "token": "moon",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "18",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "19",
+        "token": "penguin",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "20",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "21",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "22",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "23",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "24",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "25",
+        "token": "hairbrush",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "26",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "27",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "28",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "29",
+        "token": "mercury",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "30",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "31",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "32",
+        "token": "sneakers",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "33",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "34",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "35",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "36",
+        "token": "moon",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "37",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "38",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "39",
+        "token": "glasses",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "40",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "41",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "42",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "43",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "44",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "45",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "46",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "47",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "48",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "49",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "50",
+        "token": "venus",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "51",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "52",
+        "token": "events",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "53",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "54",
+        "token": "1",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "55",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "56",
+        "token": "anneena",
+        "effect": "1.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "57",
+        "token": "travels",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "58",
+        "token": "to",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "59",
+        "token": "venus",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "60",
+        "token": "and",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "61",
+        "token": "automatically",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "62",
+        "token": "picks",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "63",
+        "token": "up",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "64",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "65",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "66",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "67",
+        "token": "question",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "68",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "69",
+        "token": "who",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "70",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "71",
+        "token": "carrying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "72",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "73",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "embedding",
+        "position": "74",
+        "token": "?",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "0",
+        "token": "<cls>",
+        "effect": "0.08566245226109605"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "1",
+        "token": "initial",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "2",
+        "token": "state",
+        "effect": "1.9683305069419474e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "3",
+        "token": ":",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "4",
+        "token": "lammy",
+        "effect": "3.3067952516624717e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "5",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "6",
+        "token": "on",
+        "effect": "-1.196744948220704e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "7",
+        "token": "mars",
+        "effect": "1.1691883211235168e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "8",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "9",
+        "token": "anneena",
+        "effect": "-7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "10",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "11",
+        "token": "on",
+        "effect": "-1.684890913942307e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "12",
+        "token": "mars",
+        "effect": "2.873762540135243e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "13",
+        "token": ".",
+        "effect": "-4.3303271152722845e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "14",
+        "token": "jade",
+        "effect": "5.117659318049063e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "15",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "16",
+        "token": "on",
+        "effect": "-3.1138988619821606e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "17",
+        "token": "moon",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "18",
+        "token": ".",
+        "effect": "-3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "19",
+        "token": "penguin",
+        "effect": "2.239960116899936e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "20",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "21",
+        "token": "on",
+        "effect": "-1.6730809309006554e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "22",
+        "token": "mars",
+        "effect": "3.936661013883895e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "23",
+        "token": ".",
+        "effect": "1.1809983041651684e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "24",
+        "token": "the",
+        "effect": "1.1809983041651684e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "25",
+        "token": "hairbrush",
+        "effect": "1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "26",
+        "token": "is",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "27",
+        "token": "lying",
+        "effect": "-7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "28",
+        "token": "on",
+        "effect": "-2.763536031746494e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "29",
+        "token": "mercury",
+        "effect": "4.645259996382996e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "30",
+        "token": ".",
+        "effect": "5.117659318049063e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "31",
+        "token": "the",
+        "effect": "1.1809983041651684e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "32",
+        "token": "sneakers",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "33",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "34",
+        "token": "lying",
+        "effect": "-1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "35",
+        "token": "on",
+        "effect": "-6.298657622214232e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "36",
+        "token": "moon",
+        "effect": "-1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "37",
+        "token": ".",
+        "effect": "1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "38",
+        "token": "the",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "39",
+        "token": "glasses",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "40",
+        "token": "is",
+        "effect": "-7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "41",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "42",
+        "token": "on",
+        "effect": "-1.6179676767062806e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "43",
+        "token": "mars",
+        "effect": "-2.094303659386232e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "44",
+        "token": ".",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "45",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "46",
+        "token": "key",
+        "effect": "1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "47",
+        "token": "is",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "48",
+        "token": "lying",
+        "effect": "-3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "49",
+        "token": "on",
+        "effect": "-2.6769294894410487e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "50",
+        "token": "venus",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "51",
+        "token": ".",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "52",
+        "token": "events",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "53",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "54",
+        "token": "1",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "55",
+        "token": ".",
+        "effect": "-2.7556627097187263e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "56",
+        "token": "anneena",
+        "effect": "0.9171893043439716"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "57",
+        "token": "travels",
+        "effect": "6.298657622214232e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "58",
+        "token": "to",
+        "effect": "-7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "59",
+        "token": "venus",
+        "effect": "1.1809983041651684e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "60",
+        "token": "and",
+        "effect": "-3.149328811107116e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "61",
+        "token": "automatically",
+        "effect": "1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "62",
+        "token": "picks",
+        "effect": "-1.9683305069419474e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "63",
+        "token": "up",
+        "effect": "3.149328811107116e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "64",
+        "token": "the",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "65",
+        "token": "key",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "66",
+        "token": ".",
+        "effect": "1.1809983041651684e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "67",
+        "token": "question",
+        "effect": "3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "68",
+        "token": ":",
+        "effect": "1.157378338081865e-05"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "69",
+        "token": "who",
+        "effect": "5.117659318049063e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "70",
+        "token": "is",
+        "effect": "-1.574664405553558e-07"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "71",
+        "token": "carrying",
+        "effect": "-3.936661013883895e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "72",
+        "token": "the",
+        "effect": "7.87332202776779e-08"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "73",
+        "token": "key",
+        "effect": "3.661094742912022e-06"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_1",
+        "position": "74",
+        "token": "?",
+        "effect": "0.00012365052244609314"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "0",
+        "token": "<cls>",
+        "effect": "1.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "1",
+        "token": "initial",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "2",
+        "token": "state",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "3",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "4",
+        "token": "lammy",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "5",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "6",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "7",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "8",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "9",
+        "token": "anneena",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "10",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "11",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "12",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "13",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "14",
+        "token": "jade",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "15",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "16",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "17",
+        "token": "moon",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "18",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "19",
+        "token": "penguin",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "20",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "21",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "22",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "23",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "24",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "25",
+        "token": "hairbrush",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "26",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "27",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "28",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "29",
+        "token": "mercury",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "30",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "31",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "32",
+        "token": "sneakers",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "33",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "34",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "35",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "36",
+        "token": "moon",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "37",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "38",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "39",
+        "token": "glasses",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "40",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "41",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "42",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "43",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "44",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "45",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "46",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "47",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "48",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "49",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "50",
+        "token": "venus",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "51",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "52",
+        "token": "events",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "53",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "54",
+        "token": "1",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "55",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "56",
+        "token": "anneena",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "57",
+        "token": "travels",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "58",
+        "token": "to",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "59",
+        "token": "venus",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "60",
+        "token": "and",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "61",
+        "token": "automatically",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "62",
+        "token": "picks",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "63",
+        "token": "up",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "64",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "65",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "66",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "67",
+        "token": "question",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "68",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "69",
+        "token": "who",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "70",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "71",
+        "token": "carrying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "72",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "73",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "layer_2",
+        "position": "74",
+        "token": "?",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "0",
+        "token": "<cls>",
+        "effect": "1.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "1",
+        "token": "initial",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "2",
+        "token": "state",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "3",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "4",
+        "token": "lammy",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "5",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "6",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "7",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "8",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "9",
+        "token": "anneena",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "10",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "11",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "12",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "13",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "14",
+        "token": "jade",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "15",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "16",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "17",
+        "token": "moon",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "18",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "19",
+        "token": "penguin",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "20",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "21",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "22",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "23",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "24",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "25",
+        "token": "hairbrush",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "26",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "27",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "28",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "29",
+        "token": "mercury",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "30",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "31",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "32",
+        "token": "sneakers",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "33",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "34",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "35",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "36",
+        "token": "moon",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "37",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "38",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "39",
+        "token": "glasses",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "40",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "41",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "42",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "43",
+        "token": "mars",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "44",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "45",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "46",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "47",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "48",
+        "token": "lying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "49",
+        "token": "on",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "50",
+        "token": "venus",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "51",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "52",
+        "token": "events",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "53",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "54",
+        "token": "1",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "55",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "56",
+        "token": "anneena",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "57",
+        "token": "travels",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "58",
+        "token": "to",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "59",
+        "token": "venus",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "60",
+        "token": "and",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "61",
+        "token": "automatically",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "62",
+        "token": "picks",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "63",
+        "token": "up",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "64",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "65",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "66",
+        "token": ".",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "67",
+        "token": "question",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "68",
+        "token": ":",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "69",
+        "token": "who",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "70",
+        "token": "is",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "71",
+        "token": "carrying",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "72",
+        "token": "the",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "73",
+        "token": "key",
+        "effect": "0.0"
+      },
+      {
+        "control": "true_source",
+        "layer": "final_norm",
+        "position": "74",
+        "token": "?",
+        "effect": "0.0"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "results/activation_interventions/patching_effects.npy",
+      "bytes": 2528
+    },
+    {
+      "path": "results/activation_interventions/patching_heatmap.png",
+      "bytes": 130482
+    }
+  ],
+  "hidden_state_metadata": {},
+  "notes": [
+    "Results were collected from the source files named below; no scores are inferred.",
+    "CSV values are preserved as text; JSON reports retain their original types.",
+    "Checkpoints, hidden vectors, and images are referenced, not embedded.",
+    "Use the recorded configuration to distinguish full runs from quick checks."
+  ]
+}

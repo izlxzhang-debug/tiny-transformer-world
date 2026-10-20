@@ -3,7 +3,7 @@
 
 Run from the repository root:
 
-    python3 week10/evaluate_generalization.py
+    python3 'Trials and Results/Testing New Stories/test_new_stories.py'
 
 The evaluator covers standard stories, longer stories, withheld pickup
 combinations, unseen character names, stories with distractor events, and
@@ -113,6 +113,9 @@ def parse_args() -> argparse.Namespace:
         help="Optional balanced subset used to fit baselines.",
     )
     parser.add_argument("--bow-max-iterations", type=int, default=2_000)
+    parser.add_argument("--results-file", type=Path,
+        default=Path(__file__).resolve().with_name("results.json"),
+        help="Combined JSON results written beside this program by default.")
     return parser.parse_args()
 
 
@@ -151,15 +154,19 @@ def iter_dataset_records(path: Path, split: str | None = None):
     if path.is_file():
         source = path
     else:
-        root = Path(__file__).resolve().parent
-        if not (root / "Dataset").is_dir():
-            root = root.parent
-        allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-        source = root / "Dataset/Training and Harder Tests/dataset.json"
-        if path.parent.resolve() not in allowed or not source.is_file():
-            raise FileNotFoundError(
-                f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+        source = path.parent / "dataset.json"
+        if not source.is_file():
+            root = next(
+                (parent for parent in Path(__file__).resolve().parents
+                 if (parent / "Dataset").is_dir()),
+                Path.cwd(),
             )
+            allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
+            source = root / "Dataset/Training and Harder Tests/dataset.json"
+            if path.parent.resolve() not in allowed or not source.is_file():
+                raise FileNotFoundError(
+                    f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+                )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":
             bundle = json.load(handle)
@@ -762,6 +769,58 @@ def main() -> None:
     print("\nAutomatic comparison table")
     print((args.output_dir / "comparison_table.md").read_text(encoding="utf-8"))
     print(f"Saved results to: {args.output_dir.resolve()}")
+    write_results_bundle([args.output_dir], args.results_file, 'Testing New Stories')
+
+
+def write_results_bundle(directories, destination, experiment, *, notes=None):
+    """Save measured JSON/CSV results together; reference large binary files."""
+    import csv
+    files = {}
+    artifacts = []
+    hidden_state_metadata = {}
+    for directory in directories:
+        directory = Path(directory)
+        if not directory.is_dir():
+            continue
+        for source in sorted(directory.rglob("*")):
+            if not source.is_file() or source.resolve() == Path(destination).resolve():
+                continue
+            if any("smoke" in part for part in source.relative_to(directory).parts):
+                continue
+            key = str(source)
+            if source.suffix == ".json":
+                files[key] = json.loads(source.read_text(encoding="utf-8"))
+            elif source.suffix == ".csv":
+                with source.open(encoding="utf-8", newline="") as handle:
+                    files[key] = list(csv.DictReader(handle))
+            elif source.suffix in {".pt", ".png", ".npy"}:
+                artifacts.append({"path": key, "bytes": source.stat().st_size})
+                if source.name in {"train.pt", "validation.pt", "test_standard.pt"}:
+                    import torch
+                    saved = torch.load(source, map_location="cpu", weights_only=False)
+                    if "metadata" in saved:
+                        hidden_state_metadata[source.stem] = saved["metadata"]
+    payload = {
+        "experiment": experiment,
+        "source_directories": [str(Path(directory)) for directory in directories],
+        "files": files,
+        "artifacts": artifacts,
+        "hidden_state_metadata": hidden_state_metadata,
+        "notes": notes or [
+            "Results were collected from the source files named below; no scores are inferred.",
+            "CSV values are preserved as text; JSON reports retain their original types.",
+            "Checkpoints, hidden vectors, and images are referenced, not embedded.",
+            "Use the recorded configuration to distinguish full runs from quick checks.",
+        ],
+    }
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Saved combined results to {destination}")
+    return payload
 
 
 if __name__ == "__main__":

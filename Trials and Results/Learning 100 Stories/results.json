@@ -1,0 +1,31 @@
+{
+  "experiment": "Learning 100 Stories",
+  "configuration": {
+    "examples": 100,
+    "layers": 2,
+    "d_model": 64,
+    "heads": 2,
+    "head_dim": 32,
+    "ff_dim": 128,
+    "dropout": 0.0,
+    "maximum_length": 136,
+    "seed": 42
+  },
+  "epoch": 21,
+  "training_accuracy": 0.9900000095367432,
+  "labels": [
+    "Lammy",
+    "Anneena",
+    "Jade",
+    "Penguin",
+    "Nobody"
+  ],
+  "checkpoint": "checkpoints/tiny_transformer_overfit.pt",
+  "model_parameter_count": 78277,
+  "source": "Existing saved checkpoint; the experiment was not rerun for this report.",
+  "notes": [
+    "Accuracy is measured on the same examples used for training.",
+    "Memorization is a pipeline check, not a generalization result.",
+    "The checkpoint stores final accuracy, but does not store a per-epoch loss history."
+  ]
+}

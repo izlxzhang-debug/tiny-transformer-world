@@ -6,7 +6,7 @@ one agent token, patches one [layer, token] activation at a time, and writes a
 heatmap plus random-direction/token/layer and unrelated-property controls.
 
 Run from the project root:
-  python3 week13/intervene_hidden_states.py
+  python3 'Trials and Results/Testing What the Model Uses/test_what_model_uses.py'
 """
 
 from __future__ import annotations
@@ -30,14 +30,228 @@ try:
 except ImportError as exc:
     raise SystemExit("Install matplotlib: python3 -m pip install matplotlib") from exc
 
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+# Model and checkpoint reader included in this file.
 
-from week12.extract_hidden_states import (  # noqa: E402
-    AGENTS, LABELS, LOCATIONS, OBJECTS, TinyTransformerWithHiddenStates,
-    choose_device, load_model, tokenize,
-)
+import argparse
+
+
+import csv
+
+
+import json
+
+
+import math
+
+
+import re
+
+
+from collections import Counter
+
+
+from pathlib import Path
+
+
+from typing import Any
+
+
+import torch
+
+
+from torch import Tensor, nn
+
+
+LABELS = ["Lammy", "Anneena", "Jade", "Penguin", "Nobody"]
+
+
+AGENTS = ["Lammy", "Anneena", "Jade", "Penguin"]
+
+
+OBJECTS = ["Hairbrush", "Sneakers", "Glasses", "Key"]
+
+
+LOCATIONS = ["Mars", "Mercury", "Venus", "Moon"]
+
+
+TOKEN_PATTERN = re.compile(r"[A-Za-z]+|\d+|[^\w\s]")
+
+
+def choose_device(requested: str) -> torch.device:
+    if requested == "auto":
+        if torch.cuda.is_available():
+            requested = "cuda"
+        elif torch.backends.mps.is_available():
+            requested = "mps"
+        else:
+            requested = "cpu"
+    if requested == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA was requested but is unavailable")
+    if requested == "mps" and not torch.backends.mps.is_available():
+        raise RuntimeError("MPS was requested but is unavailable")
+    return torch.device(requested)
+
+
+def tokenize(text: str) -> list[str]:
+    return TOKEN_PATTERN.findall(text.lower())
+
+
+class MultiHeadSelfAttention(nn.Module):
+    def __init__(self, d_model: int, heads: int, dropout: float) -> None:
+        super().__init__()
+        if d_model % heads:
+            raise ValueError("d_model must be divisible by heads")
+        self.heads = heads
+        self.head_dim = d_model // heads
+        self.q_projection = nn.Linear(d_model, d_model, bias=False)
+        self.k_projection = nn.Linear(d_model, d_model, bias=False)
+        self.v_projection = nn.Linear(d_model, d_model, bias=False)
+        self.output_projection = nn.Linear(d_model, d_model, bias=False)
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x: Tensor, padding_mask: Tensor) -> Tensor:
+        batch_size, sequence_length, d_model = x.shape
+
+        def split_heads(projected: Tensor) -> Tensor:
+            return projected.view(
+                batch_size, sequence_length, self.heads, self.head_dim
+            ).transpose(1, 2)
+
+        queries = split_heads(self.q_projection(x))
+        keys = split_heads(self.k_projection(x))
+        values = split_heads(self.v_projection(x))
+        scores = queries @ keys.transpose(-2, -1) / math.sqrt(self.head_dim)
+        scores = scores.masked_fill(
+            padding_mask[:, None, None, :], torch.finfo(scores.dtype).min
+        )
+        attention = self.dropout(torch.softmax(scores, dim=-1))
+        attended = attention @ values
+        attended = attended.transpose(1, 2).contiguous().view(
+            batch_size, sequence_length, d_model
+        )
+        return self.output_projection(attended)
+
+
+class TransformerBlock(nn.Module):
+    def __init__(
+        self, d_model: int, heads: int, ff_dim: int, dropout: float
+    ) -> None:
+        super().__init__()
+        self.norm1 = nn.LayerNorm(d_model)
+        self.attention = MultiHeadSelfAttention(d_model, heads, dropout)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.feed_forward = nn.Sequential(
+            nn.Linear(d_model, ff_dim),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(ff_dim, d_model),
+        )
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x: Tensor, padding_mask: Tensor) -> Tensor:
+        x = x + self.dropout(self.attention(self.norm1(x), padding_mask))
+        x = x + self.dropout(self.feed_forward(self.norm2(x)))
+        return x
+
+
+class TinyTransformerWithHiddenStates(nn.Module):
+    """Checkpoint-compatible transformer that can return every hidden state."""
+
+    def __init__(
+        self,
+        vocabulary_size: int,
+        position_capacity: int,
+        pad_index: int,
+        d_model: int,
+        heads: int,
+        layers: int,
+        ff_dim: int,
+        dropout: float,
+    ) -> None:
+        super().__init__()
+        self.pad_index = pad_index
+        self.token_embedding = nn.Embedding(
+            vocabulary_size, d_model, padding_idx=pad_index
+        )
+        self.position_embedding = nn.Embedding(position_capacity, d_model)
+        self.embedding_dropout = nn.Dropout(dropout)
+        self.blocks = nn.ModuleList(
+            [
+                TransformerBlock(d_model, heads, ff_dim, dropout)
+                for _ in range(layers)
+            ]
+        )
+        self.final_norm = nn.LayerNorm(d_model)
+        self.classifier = nn.Linear(d_model, len(LABELS))
+
+    def forward(
+        self, token_ids: Tensor, return_hidden_states: bool = False
+    ) -> Tensor | tuple[Tensor, dict[str, Tensor]]:
+        batch_size, sequence_length = token_ids.shape
+        if sequence_length > self.position_embedding.num_embeddings:
+            raise ValueError(
+                f"Sequence length {sequence_length} exceeds the checkpoint's "
+                f"learned position capacity "
+                f"{self.position_embedding.num_embeddings}. Do not truncate "
+                "interpretability examples silently."
+            )
+        positions = torch.arange(sequence_length, device=token_ids.device)
+        positions = positions.unsqueeze(0).expand(batch_size, sequence_length)
+        x = self.token_embedding(token_ids) + self.position_embedding(positions)
+        x = self.embedding_dropout(x)
+        hidden_states: dict[str, Tensor] = {"embedding": x}
+        padding_mask = token_ids.eq(self.pad_index)
+        for layer_number, block in enumerate(self.blocks, start=1):
+            x = block(x, padding_mask)
+            hidden_states[f"layer_{layer_number}"] = x
+        normalized = self.final_norm(x)
+        hidden_states["final_norm"] = normalized
+        logits = self.classifier(normalized[:, 0])
+        if return_hidden_states:
+            return logits, hidden_states
+        return logits
+
+
+def load_model(
+    checkpoint_path: Path, device: torch.device
+) -> tuple[TinyTransformerWithHiddenStates, dict[str, int], dict[str, Any]]:
+    if not checkpoint_path.exists():
+        raise FileNotFoundError(f"Missing checkpoint: {checkpoint_path}")
+    checkpoint = torch.load(checkpoint_path, map_location="cpu")
+    required = {"model_state", "settings", "vocabulary", "labels", "seed", "epoch"}
+    if not required.issubset(checkpoint):
+        raise ValueError("Checkpoint has an incompatible format")
+    if checkpoint["labels"] != LABELS:
+        raise ValueError("Checkpoint label order does not match this program")
+    settings = checkpoint["settings"]
+    vocabulary = checkpoint["vocabulary"]
+    token_to_index = {token: index for index, token in enumerate(vocabulary)}
+    position_capacity = checkpoint["model_state"][
+        "position_embedding.weight"
+    ].shape[0]
+    model = TinyTransformerWithHiddenStates(
+        vocabulary_size=len(vocabulary),
+        position_capacity=position_capacity,
+        pad_index=token_to_index["<pad>"],
+        d_model=int(settings["d_model"]),
+        heads=int(settings["heads"]),
+        layers=int(settings["layers"]),
+        ff_dim=int(settings["feed_forward_dimension"]),
+        dropout=float(settings["dropout"]),
+    )
+    model.load_state_dict(checkpoint["model_state"])
+    model.to(device).eval()
+    metadata = {
+        "checkpoint": str(checkpoint_path.resolve()),
+        "seed": int(checkpoint["seed"]),
+        "checkpoint_epoch": int(checkpoint["epoch"]),
+        "d_model": int(settings["d_model"]),
+        "layers": int(settings["layers"]),
+        "heads": int(settings["heads"]),
+        "position_capacity": int(position_capacity),
+        "vocabulary_size": len(vocabulary),
+    }
+    return model, token_to_index, metadata
 
 
 def parse_args() -> argparse.Namespace:
@@ -54,6 +268,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--top-k", type=int, default=5)
     p.add_argument("--seed", type=int, default=2026)
     p.add_argument("--device", choices=("auto", "cpu", "mps", "cuda"), default="auto")
+    p.add_argument("--results-file", type=Path,
+        default=Path(__file__).resolve().with_name("results.json"),
+        help="Combined JSON results written beside this program by default.")
     return p.parse_args()
 
 
@@ -382,6 +599,58 @@ def main() -> None:
     print("Target clean prediction:", report["pair"]["target_prediction"])
     print("Heatmap:", (args.output_dir / "patching_heatmap.png").resolve())
     print("Report:", (args.output_dir / "intervention_report.json").resolve())
+    write_results_bundle([args.output_dir], args.results_file, "Testing What the Model Uses")
+
+
+def write_results_bundle(directories, destination, experiment, *, notes=None):
+    """Save measured JSON/CSV results together; reference large binary files."""
+    import csv
+    files = {}
+    artifacts = []
+    hidden_state_metadata = {}
+    for directory in directories:
+        directory = Path(directory)
+        if not directory.is_dir():
+            continue
+        for source in sorted(directory.rglob("*")):
+            if not source.is_file() or source.resolve() == Path(destination).resolve():
+                continue
+            if any("smoke" in part for part in source.relative_to(directory).parts):
+                continue
+            key = str(source)
+            if source.suffix == ".json":
+                files[key] = json.loads(source.read_text(encoding="utf-8"))
+            elif source.suffix == ".csv":
+                with source.open(encoding="utf-8", newline="") as handle:
+                    files[key] = list(csv.DictReader(handle))
+            elif source.suffix in {".pt", ".png", ".npy"}:
+                artifacts.append({"path": key, "bytes": source.stat().st_size})
+                if source.name in {"train.pt", "validation.pt", "test_standard.pt"}:
+                    import torch
+                    saved = torch.load(source, map_location="cpu", weights_only=False)
+                    if "metadata" in saved:
+                        hidden_state_metadata[source.stem] = saved["metadata"]
+    payload = {
+        "experiment": experiment,
+        "source_directories": [str(Path(directory)) for directory in directories],
+        "files": files,
+        "artifacts": artifacts,
+        "hidden_state_metadata": hidden_state_metadata,
+        "notes": notes or [
+            "Results were collected from the source files named below; no scores are inferred.",
+            "CSV values are preserved as text; JSON reports retain their original types.",
+            "Checkpoints, hidden vectors, and images are referenced, not embedded.",
+            "Use the recorded configuration to distinguish full runs from quick checks.",
+        ],
+    }
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Saved combined results to {destination}")
+    return payload
 
 
 if __name__ == "__main__":

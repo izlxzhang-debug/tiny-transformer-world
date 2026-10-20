@@ -1,11 +1,12 @@
 # Week 9: Three-Seed Tiny-Transformer Training
 
-This folder contains the complete standalone program for training the
-word-level tiny transformer with three random seeds and comparing the runs.
+The `Trials and Results/Training the Model/` folder contains one standalone
+program for training the word-level tiny transformer with three random seeds
+and comparing the runs, plus the original recorded results in `results.json`.
 
 ## Included file
 
-- `train_three_seed_transformer.py`: model, tokenizer, training loop,
+- `train_model.py`: model, tokenizer, training loop,
   validation loop, checkpoint system, metrics export, and diagnostics in one
   runnable Python file.
 
@@ -20,7 +21,7 @@ Run from the repository root:
 
 ```bash
 source .venv/bin/activate
-python3 week9/train_three_seed_transformer.py
+python3 'Trials and Results/Training the Model/train_model.py'
 ```
 
 The defaults use:
@@ -38,19 +39,22 @@ The defaults use:
 ## Fast verification
 
 ```bash
-python3 week9/train_three_seed_transformer.py \
+python3 'Trials and Results/Training the Model/train_model.py' \
   --device cpu \
   --epochs 2 \
   --max-train 200 \
   --max-validation 100 \
-  --output-dir results/tiny_transformer_training_smoke
+  --output-dir results/tiny_transformer_training_smoke \
+  --results-file results/tiny_transformer_training_smoke/results.json
 ```
 
 ## Saved outputs
 
-The default output directory is `results/tiny_transformer_training/`.
-Generated results and checkpoints are intentionally excluded from Git because
-the checkpoints are reproducible binary artifacts.
+The default raw output directory is `results/tiny_transformer_training/`.
+The program also collects the measured JSON/CSV outputs in the adjacent
+`results.json`, which is included on GitHub. Binary checkpoints remain local;
+regenerate them with this training program before running later experiments
+on a fresh clone. Use `--results-file` to save a new report to another location.
 
 The program creates:
 

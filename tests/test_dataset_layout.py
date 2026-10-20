@@ -75,11 +75,11 @@ def test_weekly_program_runs_with_only_its_own_file(
 
 
 @pytest.mark.parametrize("filename", [
-    "train_tiny_transformer.py",
-    "week9/train_three_seed_transformer.py",
-    "week10/evaluate_generalization.py",
-    "week11/error_analysis_and_ablations.py",
-    "week12/extract_hidden_states.py",
+    "Trials and Results/Learning 100 Stories/learn_100_stories.py",
+    "Trials and Results/Training the Model/train_model.py",
+    "Trials and Results/Testing New Stories/test_new_stories.py",
+    "Trials and Results/Finding Mistakes/find_mistakes.py",
+    "Trials and Results/Looking Inside the Model/look_inside.py",
     "scripts/evaluate_majority_baseline.py",
     "scripts/evaluate_bow_logistic_regression.py",
 ])
