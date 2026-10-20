@@ -6,7 +6,7 @@
 
 ## Output
 
-[`Dataset/Basic Splits/generate_splits.py`](../../Dataset/Basic%20Splits/generate_splits.py)
+[`Dataset/Training and Test Stories/generate_splits.py`](../../Dataset/Training%20and%20Test%20Stories/generate_splits.py)
 is one complete, independently runnable, standard-library-only program. By
 default it creates 10,000 training, 1,000 validation, and 1,000 standard test
 examples.
@@ -23,7 +23,7 @@ rule-based accuracy with zero invalid actions before saving the data.
 ## Run
 
 ```bash
-python3 'Dataset/Basic Splits/generate_splits.py'
+python3 'Dataset/Training and Test Stories/generate_splits.py'
 ```
 
 Reduced sizes can be supplied through the documented command-line options for

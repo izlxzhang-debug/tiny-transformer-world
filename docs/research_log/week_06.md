@@ -6,7 +6,7 @@
 
 ## Output
 
-[`Dataset/Full Dataset/generate_full_dataset.py`](../../Dataset/Full%20Dataset/generate_full_dataset.py)
+[`Dataset/Training and Harder Tests/generate_full_dataset.py`](../../Dataset/Training%20and%20Harder%20Tests/generate_full_dataset.py)
 is one complete, independently runnable, standard-library-only program. Its
 default output contains 20,000 training examples and five 2,000-example
 validation or test splits: validation, standard, long-story, paraphrase, and
@@ -21,10 +21,10 @@ the program deliberately does not claim that the human review is complete.
 ## Run
 
 ```bash
-python3 'Dataset/Full Dataset/generate_full_dataset.py'
+python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'
 ```
 
-The six datasets are stored under `splits` in `Dataset/Full Dataset/dataset.json`.
+The six datasets are stored under `splits` in `Dataset/Training and Harder Tests/dataset.json`.
 That same file holds the validation report and the 100 manual-review references
 with blank status and notes fields. Training and evaluation readers select
 the requested split without mixing training, validation, and test examples.

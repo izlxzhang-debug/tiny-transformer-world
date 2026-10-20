@@ -12,11 +12,11 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 FOLDERS = {
-    2: "World Examples",
-    3: "Rule Checks",
-    4: "Sample Stories",
-    5: "Basic Splits",
-    6: "Full Dataset",
+    2: "Example Stories",
+    3: "Testing the Rules",
+    4: "300 Stories",
+    5: "Training and Test Stories",
+    6: "Training and Harder Tests",
 }
 PROGRAMS = [
     (2, "generate_examples.py", []),
