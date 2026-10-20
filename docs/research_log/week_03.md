@@ -46,13 +46,13 @@ move already operates on its own deep-copied state.
 ## Reproduction
 
 The complete implementation, checks, and example are all contained in
-[`Dataset/Week 3/week3_simulator.py`](../../Dataset/Week%203/week3_simulator.py). No third-party libraries are
+[`Dataset/Rule Checks/check_rules.py`](../../Dataset/Rule%20Checks/check_rules.py). No third-party libraries are
 needed.
 
 Run it with:
 
 ```bash
-python3 'Dataset/Week 3/week3_simulator.py'
+python3 'Dataset/Rule Checks/check_rules.py'
 ```
 
 Expected opening output:

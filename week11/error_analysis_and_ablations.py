@@ -76,7 +76,7 @@ ERROR_CATEGORIES = [
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--data-dir", type=Path, default=Path("Dataset/Week 6")
+        "--data-dir", type=Path, default=Path("Dataset/Full Dataset")
     )
     parser.add_argument(
         "--output-dir", type=Path, default=Path("results/week11_ablations")
@@ -167,11 +167,11 @@ def iter_dataset_records(path: Path, split: str | None = None):
         root = Path(__file__).resolve().parent
         if not (root / "Dataset").is_dir():
             root = root.parent
-        allowed = {root / "data/week6_full_dataset", root / "Dataset/Week 6"}
-        source = root / "Dataset/Week 6/dataset.json"
+        allowed = {root / "data/week6_full_dataset", root / "Dataset/Full Dataset"}
+        source = root / "Dataset/Full Dataset/dataset.json"
         if path.parent.resolve() not in allowed or not source.is_file():
             raise FileNotFoundError(
-                f"Missing {path}. Run python3 'Dataset/Week 6/generate_week6_full_dataset.py'."
+                f"Missing {path}. Run python3 'Dataset/Full Dataset/generate_full_dataset.py'."
             )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":

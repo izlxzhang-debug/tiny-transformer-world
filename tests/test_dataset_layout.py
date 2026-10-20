@@ -11,14 +11,21 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+FOLDERS = {
+    2: "World Examples",
+    3: "Rule Checks",
+    4: "Sample Stories",
+    5: "Basic Splits",
+    6: "Full Dataset",
+}
 PROGRAMS = [
-    (2, "generate_week2_dataset.py", []),
-    (3, "week3_simulator.py", []),
-    (4, "generate_300_stories.py", []),
-    (5, "generate_week5_dataset.py", [
+    (2, "generate_examples.py", []),
+    (3, "check_rules.py", []),
+    (4, "generate_samples.py", []),
+    (5, "generate_splits.py", [
         "--train-size", "20", "--validation-size", "20", "--test-size", "20",
     ]),
-    (6, "generate_week6_full_dataset.py", [
+    (6, "generate_full_dataset.py", [
         "--train-size", "20", "--split-size", "20", "--manual-size", "20",
         "--progress-every", "0",
     ]),
@@ -30,7 +37,7 @@ def test_weekly_program_runs_with_only_its_own_file(
     tmp_path, week, filename, arguments,
 ):
     """Copy no dependencies and run outside the repository with isolated Python."""
-    source = ROOT / "Dataset" / f"Week {week}" / filename
+    source = ROOT / "Dataset" / FOLDERS[week] / filename
     program = tmp_path / filename
     shutil.copyfile(source, program)
     subprocess.run(

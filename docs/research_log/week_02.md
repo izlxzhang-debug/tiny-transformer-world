@@ -75,7 +75,7 @@ The stories cover:
 Generate the checked dataset with:
 
 ```bash
-python 'Dataset/Week 2/generate_week2_dataset.py'
+python 'Dataset/World Examples/generate_examples.py'
 ```
 
 Run the checks with:

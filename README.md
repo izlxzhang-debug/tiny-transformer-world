@@ -10,11 +10,11 @@ This workspace supports the passion project:
 | Week | Focus | Status | Main output |
 |---:|---|---|---|
 | 1 | Research question and scope | Complete | [Project proposal](docs/proposal.md) |
-| 2 | Formal world construction | Complete | [Standalone program](Dataset/Week%202/generate_week2_dataset.py) and [dataset](Dataset/Week%202/dataset.json) |
-| 3 | Standalone simulator verification | Complete | [Copy-and-run simulator](Dataset/Week%203/week3_simulator.py) and [research log](docs/research_log/week_03.md) |
-| 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/Week%204/generate_300_stories.py) and [300 validated stories](Dataset/Week%204/dataset.json) |
-| 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/Week%205/generate_week5_dataset.py) and [dataset](Dataset/Week%205/dataset.json) |
-| 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/Week%206/generate_week6_full_dataset.py) and [dataset](Dataset/Week%206/dataset.json) |
+| 2 | Formal world construction | Complete | [Standalone program](Dataset/World%20Examples/generate_examples.py) and [dataset](Dataset/World%20Examples/dataset.json) |
+| 3 | Standalone simulator verification | Complete | [Copy-and-run simulator](Dataset/Rule%20Checks/check_rules.py) and [research log](docs/research_log/week_03.md) |
+| 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/Sample%20Stories/generate_samples.py) and [300 validated stories](Dataset/Sample%20Stories/dataset.json) |
+| 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/Basic%20Splits/generate_splits.py) and [dataset](Dataset/Basic%20Splits/dataset.json) |
+| 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/Full%20Dataset/generate_full_dataset.py) and [dataset](Dataset/Full%20Dataset/dataset.json) |
 | 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](train_tiny_transformer.py) and [research log](docs/research_log/week_08.md) |
 | 9 | Three-seed full training | Complete | [Week 9 package](week9/README.md) and [research log](docs/research_log/week_09.md) |
 
@@ -32,10 +32,10 @@ automated tests. See the [Week 2 research log](docs/research_log/week_02.md).
 Week 3 produced one self-contained Python file containing the simulator,
 edge-case checks, and a complete example. It uses only the Python standard
 library and does not require the package or any other project file. Copy
-[Dataset/Week 3/week3_simulator.py](Dataset/Week%203/week3_simulator.py) into a Python file and run it with:
+[Dataset/Rule Checks/check_rules.py](Dataset/Rule%20Checks/check_rules.py) into a Python file and run it with:
 
 ```bash
-python3 'Dataset/Week 3/week3_simulator.py'
+python3 'Dataset/Rule Checks/check_rules.py'
 ```
 
 The program should print `All tests passed.` before showing the five world
@@ -53,8 +53,18 @@ splits. Week 6 produces the full 30,000-example dataset, including long-story,
 paraphrase, and withheld-combination test sets plus 100 example references for
 human review. The original generated datasets are included in the repository.
 
-Each folder under `Dataset/`, from `Week 2` through `Week 6`, contains exactly
-one standalone Python program and one `dataset.json`. Run any weekly program
+The five folders under `Dataset/` are named for their purpose:
+
+| Folder | Purpose | Original stage |
+|---|---|---|
+| `World Examples` | Eleven worked stories with correct world states | Week 2 |
+| `Rule Checks` | Simulator rule checks and a worked example | Week 3 |
+| `Sample Stories` | Generate 300 balanced sample stories | Week 4 |
+| `Basic Splits` | Generate training, validation, and standard test sets | Week 5 |
+| `Full Dataset` | Generate the full dataset and specialized tests | Week 6 |
+
+Each folder contains exactly one standalone Python program and one
+`dataset.json`. Run any program
 with Python 3.11 or newer; no other project file or third-party package is
 needed. By default its data file is saved alongside that program.
 
@@ -65,7 +75,7 @@ and the validation report are stored in the same file. Combining the files
 does not combine the training and test examples into one split.
 
 Training and evaluation programs automatically read the requested split from
-`Dataset/Week 6/dataset.json`. Their readers also support the earlier separate
+`Dataset/Full Dataset/dataset.json`. Their readers also support the earlier separate
 JSONL files when those files are explicitly supplied. Existing simulator
 modules under `src/` remain available for package imports and automated tests.
 
@@ -98,14 +108,14 @@ Open a terminal in this folder and run:
 
 ```bash
 source .venv/bin/activate
-python3 'Dataset/Week 3/week3_simulator.py'
-python3 'Dataset/Week 4/generate_300_stories.py'
-python3 'Dataset/Week 5/generate_week5_dataset.py'
-python3 'Dataset/Week 6/generate_week6_full_dataset.py'
+python3 'Dataset/Rule Checks/check_rules.py'
+python3 'Dataset/Sample Stories/generate_samples.py'
+python3 'Dataset/Basic Splits/generate_splits.py'
+python3 'Dataset/Full Dataset/generate_full_dataset.py'
 python3 train_tiny_transformer.py
 python3 week9/train_three_seed_transformer.py
 python scripts/check_environment.py
-python 'Dataset/Week 2/generate_week2_dataset.py'
+python 'Dataset/World Examples/generate_examples.py'
 pytest
 jupyter lab
 ```
