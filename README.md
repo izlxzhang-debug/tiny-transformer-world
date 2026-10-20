@@ -140,14 +140,3 @@ results/       experiment metrics and tables
 paper/         proposal, research paper, and philosophy essay
 scripts/       environment and utility commands
 ```
-
-## Recommended build order
-
-1. Write the one-page proposal and operational definition of “world model.”
-2. Implement and test the formal fictional-world simulator.
-3. Generate and validate balanced datasets.
-4. Establish majority-class and bag-of-words baselines.
-5. Train the tiny transformer with three random seeds.
-6. Run generalization tests, hidden-state probes, and controls.
-7. Attempt activation patching as the stretch experiment.
-8. Interpret the results in the research paper and philosophy essay.
