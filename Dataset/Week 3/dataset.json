@@ -1,0 +1,191 @@
+{
+  "type": "worked_simulator_example",
+  "initial_state": {
+    "agent_locations": {
+      "Lammy": "Mercury",
+      "Anneena": "Venus",
+      "Jade": "Moon",
+      "Penguin": "Mars"
+    },
+    "object_states": {
+      "Hairbrush": "Mercury",
+      "Sneakers": "Venus",
+      "Glasses": "Moon",
+      "Key": "Mars"
+    }
+  },
+  "events": [
+    {
+      "action": "move",
+      "agent": "Lammy",
+      "destination": "Venus"
+    },
+    {
+      "action": "move",
+      "agent": "Lammy",
+      "destination": "Mars"
+    },
+    {
+      "action": "drop",
+      "agent": "Lammy",
+      "object": "Sneakers"
+    },
+    {
+      "action": "move",
+      "agent": "Anneena",
+      "destination": "Mars"
+    }
+  ],
+  "state_trace": [
+    {
+      "time": 0,
+      "event": null,
+      "state": {
+        "agent_locations": {
+          "Lammy": "Mercury",
+          "Anneena": "Venus",
+          "Jade": "Moon",
+          "Penguin": "Mars"
+        },
+        "object_states": {
+          "Hairbrush": "Mercury",
+          "Sneakers": "Venus",
+          "Glasses": "Moon",
+          "Key": "Mars"
+        }
+      }
+    },
+    {
+      "time": 1,
+      "event": {
+        "action": "move",
+        "agent": "Lammy",
+        "destination": "Venus"
+      },
+      "result": {
+        "automatic_pickups": [
+          "Sneakers"
+        ]
+      },
+      "state": {
+        "agent_locations": {
+          "Lammy": "Venus",
+          "Anneena": "Venus",
+          "Jade": "Moon",
+          "Penguin": "Mars"
+        },
+        "object_states": {
+          "Hairbrush": "Mercury",
+          "Sneakers": "Lammy",
+          "Glasses": "Moon",
+          "Key": "Mars"
+        }
+      }
+    },
+    {
+      "time": 2,
+      "event": {
+        "action": "move",
+        "agent": "Lammy",
+        "destination": "Mars"
+      },
+      "result": {
+        "automatic_pickups": [
+          "Key"
+        ]
+      },
+      "state": {
+        "agent_locations": {
+          "Lammy": "Mars",
+          "Anneena": "Venus",
+          "Jade": "Moon",
+          "Penguin": "Mars"
+        },
+        "object_states": {
+          "Hairbrush": "Mercury",
+          "Sneakers": "Lammy",
+          "Glasses": "Moon",
+          "Key": "Lammy"
+        }
+      }
+    },
+    {
+      "time": 3,
+      "event": {
+        "action": "drop",
+        "agent": "Lammy",
+        "object": "Sneakers"
+      },
+      "result": {
+        "automatic_pickups": []
+      },
+      "state": {
+        "agent_locations": {
+          "Lammy": "Mars",
+          "Anneena": "Venus",
+          "Jade": "Moon",
+          "Penguin": "Mars"
+        },
+        "object_states": {
+          "Hairbrush": "Mercury",
+          "Sneakers": "Mars",
+          "Glasses": "Moon",
+          "Key": "Lammy"
+        }
+      }
+    },
+    {
+      "time": 4,
+      "event": {
+        "action": "move",
+        "agent": "Anneena",
+        "destination": "Mars"
+      },
+      "result": {
+        "automatic_pickups": [
+          "Sneakers"
+        ]
+      },
+      "state": {
+        "agent_locations": {
+          "Lammy": "Mars",
+          "Anneena": "Mars",
+          "Jade": "Moon",
+          "Penguin": "Mars"
+        },
+        "object_states": {
+          "Hairbrush": "Mercury",
+          "Sneakers": "Anneena",
+          "Glasses": "Moon",
+          "Key": "Lammy"
+        }
+      }
+    }
+  ],
+  "final_state": {
+    "agent_locations": {
+      "Lammy": "Mars",
+      "Anneena": "Mars",
+      "Jade": "Moon",
+      "Penguin": "Mars"
+    },
+    "object_states": {
+      "Hairbrush": "Mercury",
+      "Sneakers": "Anneena",
+      "Glasses": "Moon",
+      "Key": "Lammy"
+    }
+  },
+  "questions": [
+    {
+      "object": "Sneakers",
+      "text": "Who is carrying the sneakers?",
+      "answer": "Anneena"
+    },
+    {
+      "object": "Key",
+      "text": "Who is carrying the key?",
+      "answer": "Lammy"
+    }
+  ]
+}

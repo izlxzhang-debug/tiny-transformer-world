@@ -15,12 +15,14 @@ Each split is exactly balanced over the Cartesian product of four question
 objects and five answers. Four automatic-pickup triples are absent from all
 ordinary splits and present in the withheld test split. Every saved example is
 replayed by the rule-based simulator before generation is declared successful.
+
+One adjacent dataset.json contains all six named splits, the validation report,
+and manual-review references. No other project files or packages are needed.
 """
 
 from __future__ import annotations
 
 import argparse
-import csv
 import hashlib
 import json
 import random
@@ -633,7 +635,7 @@ def calculate_statistics(records: list[dict[str, Any]]) -> dict[str, Any]:
 def save_json(data: Any, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
-        json.dump(data, handle, indent=2, ensure_ascii=False)
+        json.dump(data, handle, ensure_ascii=False, separators=(",", ":"))
 
 
 def save_jsonl(records: Iterable[dict[str, Any]], path: Path) -> None:
@@ -646,13 +648,18 @@ def save_jsonl(records: Iterable[dict[str, Any]], path: Path) -> None:
 
 def load_jsonl(path: Path) -> Iterator[dict[str, Any]]:
     with path.open("r", encoding="utf-8") as handle:
-        for line in handle:
-            if line.strip():
-                yield json.loads(line)
+        if path.suffix == ".json":
+            bundle = json.load(handle)
+            for records in bundle["splits"].values():
+                yield from records
+        else:
+            for line in handle:
+                if line.strip():
+                    yield json.loads(line)
 
 
 def validate_saved_files(paths: list[Path]) -> dict[str, Any]:
-    """Reload JSONL and recheck correctness plus cross-split uniqueness."""
+    """Reload stored records and recheck correctness plus cross-split uniqueness."""
     fingerprints: set[str] = set()
     total = 0
     correct = 0
@@ -697,39 +704,6 @@ def select_manual_examples(
         selected.extend(rng.sample(by_answer[answer], per_answer))
     rng.shuffle(selected)
     return selected
-
-
-def save_manual_inspection_files(examples: list[dict[str, Any]], output_dir: Path) -> None:
-    """Write full JSON records and a human-fillable CSV review sheet."""
-    save_json(examples, output_dir / "manual_inspection_100.json")
-    with (output_dir / "manual_inspection_100.csv").open(
-        "w", encoding="utf-8", newline=""
-    ) as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=(
-                "split",
-                "story_id",
-                "answer",
-                "question_object",
-                "status",
-                "notes",
-                "story_text",
-            ),
-        )
-        writer.writeheader()
-        for story in examples:
-            writer.writerow(
-                {
-                    "split": story["split"],
-                    "story_id": story["story_id"],
-                    "answer": story["answer"],
-                    "question_object": story["question"]["object"],
-                    "status": "",
-                    "notes": "",
-                    "story_text": story["story_text"],
-                }
-            )
 
 
 def build_specs(train_size: int, split_size: int, seed_offset: int) -> list[dict[str, Any]]:
@@ -803,8 +777,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/week6_full_dataset"),
-        help="Directory for JSONL datasets and reports.",
+        default=Path(__file__).resolve().parent,
+        help="Directory for the single dataset.json bundle.",
     )
     parser.add_argument(
         "--train-size", type=int, default=20_000, help="Training split size."
@@ -819,7 +793,7 @@ def parse_args() -> argparse.Namespace:
         "--manual-size",
         type=int,
         default=100,
-        help="Answer-balanced sample exported for human inspection.",
+        help="Answer-balanced sample included in dataset.json for human inspection.",
     )
     parser.add_argument(
         "--seed-offset", type=int, default=0, help="Offset added to every split seed."
@@ -858,7 +832,7 @@ def main() -> None:
     validation_report: dict[str, Any] = {}
     statistics_report: dict[str, Any] = {}
     generation_attempts: dict[str, int] = {}
-    output_paths: list[Path] = []
+    splits: dict[str, list[dict[str, Any]]] = {}
     manual_pool: list[dict[str, Any]] = []
 
     print("Generating the complete Week 6 dataset...")
@@ -871,13 +845,13 @@ def main() -> None:
         print(f"Validating {spec['name']}...")
         validation_report[spec["name"]] = validate_split(records, spec)
         statistics_report[spec["name"]] = calculate_statistics(records)
-        output_path = args.output_dir / f"{spec['name']}.jsonl"
-        save_jsonl(records, output_path)
-        output_paths.append(output_path)
+        splits[spec["name"]] = records
         manual_pool.extend(records)
 
     print("\nReloading and validating serialized files...")
-    serialized_report = validate_saved_files(output_paths)
+    output_path = args.output_dir / "dataset.json"
+    save_json({"splits": splits}, output_path)
+    serialized_report = validate_saved_files([output_path])
     train_withheld = sum(
         validation_report["train"]["withheld_combination_counts"].values()
     )
@@ -887,10 +861,6 @@ def main() -> None:
     manual_examples = select_manual_examples(
         manual_pool, args.manual_size, 999 + args.seed_offset
     )
-    # Preserve the production filenames requested by the project; overridden
-    # smoke runs can choose another manual size and the report records it.
-    save_manual_inspection_files(manual_examples, args.output_dir)
-
     report = {
         "world_version": WORLD_VERSION,
         "generator_version": GENERATOR_VERSION,
@@ -913,22 +883,33 @@ def main() -> None:
             "examples_exported": args.manual_size,
             "inspection_completed": False,
             "instruction": (
-                "Open manual_inspection_100.csv, independently solve every story, "
-                "enter pass or fail in status, and document discrepancies in notes."
+                "Read manual_inspection in dataset.json, independently solve every story, "
+                "and record your own findings; export does not constitute human review."
             ),
         },
     }
-    save_json(report, args.output_dir / "validation_report.json")
+    save_json(
+        {
+            "splits": splits,
+            "validation_report": report,
+            "manual_inspection": [
+                {"story_id": story["story_id"], "split": story["split"],
+                 "status": "", "notes": ""}
+                for story in manual_examples
+            ],
+        },
+        output_path,
+    )
 
     print("\nGeneration and validation completed successfully.")
-    print(f"Output directory: {args.output_dir.resolve()}")
+    print(f"Dataset file: {output_path.resolve()}")
     print(f"Total stories: {serialized_report['total_stories']:,}")
     print(f"Rule-based accuracy: {serialized_report['rule_based_accuracy']:.1%}")
     print(f"Invalid actions: {serialized_report['invalid_action_count']}")
     print(f"Cross-split duplicates: {serialized_report['cross_split_duplicate_count']}")
     print(f"Withheld combinations in training: {train_withheld}")
     print(
-        f"Exported {args.manual_size} balanced examples for genuine human review; "
+        f"Included {args.manual_size} balanced example IDs for human review; "
         "the review is not marked complete."
     )
 

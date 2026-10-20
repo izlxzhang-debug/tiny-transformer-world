@@ -4,6 +4,8 @@ Copy this entire file and run it directly with Python. It uses only the
 standard library and includes the simulator, edge-case tests, and an example.
 """
 
+import json
+from pathlib import Path
 from copy import deepcopy
 
 
@@ -266,6 +268,27 @@ def run_example():
     ]
 
     final_state, trace = simulate(make_initial_state(), events)
+    output_path = Path(__file__).resolve().with_name("dataset.json")
+    example = {
+        "type": "worked_simulator_example",
+        "initial_state": make_initial_state(),
+        "events": events,
+        "state_trace": trace,
+        "final_state": final_state,
+        "questions": [
+            {
+                "object": obj,
+                "text": f"Who is carrying the {obj.lower()}?",
+                "answer": who_is_carrying(final_state, obj),
+            }
+            for obj in ("Sneakers", "Key")
+        ],
+    }
+    output_path.write_text(
+        json.dumps(example, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Saved worked example to {output_path}")
 
     for entry in trace:
         print(f"\nState S_{entry['time']}")

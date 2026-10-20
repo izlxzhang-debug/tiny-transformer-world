@@ -37,7 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--data-dir",
         type=Path,
-        default=Path("data/week6_full_dataset"),
+        default=Path("Dataset/Week 6"),
         help="Directory containing the Week 6 JSONL files.",
     )
     parser.add_argument(
@@ -55,22 +55,40 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def iter_dataset_records(path: Path, split: str | None = None):
+    """Read an old split file or a named split from the Week 6 JSON bundle."""
+    selected_split = split or path.stem
+    if path.is_file():
+        source = path
+    else:
+        root = Path(__file__).resolve().parent
+        if not (root / "Dataset").is_dir():
+            root = root.parent
+        allowed = {root / "data/week6_full_dataset", root / "Dataset/Week 6"}
+        source = root / "Dataset/Week 6/dataset.json"
+        if path.parent.resolve() not in allowed or not source.is_file():
+            raise FileNotFoundError(
+                f"Missing {path}. Run python3 'Dataset/Week 6/generate_week6_full_dataset.py'."
+            )
+    with source.open("r", encoding="utf-8") as handle:
+        if source.suffix == ".json":
+            bundle = json.load(handle)
+            if selected_split not in bundle["splits"]:
+                raise ValueError(f"Unknown dataset split: {selected_split}")
+            yield from bundle["splits"][selected_split]
+        else:
+            for line in handle:
+                if line.strip():
+                    yield json.loads(line)
+
+
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
-    if not path.exists():
-        raise FileNotFoundError(
-            f"Missing {path}. Generate the Week 6 dataset first with: "
-            "python3 scripts/generate_week6_full_dataset.py"
-        )
     records: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as handle:
-        for line_number, line in enumerate(handle, start=1):
-            if not line.strip():
-                continue
-            record = json.loads(line)
-            required = {"story_text", "answer", "metrics"}
-            if not required.issubset(record):
-                raise ValueError(f"{path}:{line_number} has an invalid record format")
-            records.append(record)
+    for line_number, record in enumerate(iter_dataset_records(path), start=1):
+        required = {"story_text", "answer", "metrics"}
+        if not required.issubset(record):
+            raise ValueError(f"{path}:{line_number} has an invalid record format")
+        records.append(record)
     if not records:
         raise ValueError(f"{path} contains no examples")
     return records

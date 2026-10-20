@@ -8,7 +8,7 @@
 
 - Kept the complete simulator, generator, validation, statistics, and command
   entry point in one standalone file:
-  [`generate_300_stories.py`](../../generate_300_stories.py).
+  [`Dataset/Week 4/generate_300_stories.py`](../../Dataset/Week%204/generate_300_stories.py).
 - Randomized agent locations, loose-object locations, acting agents, movement
   destinations, drops, story lengths, and queried objects.
 - Generated 300 nonduplicate stories with one to six sequential events each.
@@ -17,12 +17,12 @@
 - Replayed every saved story and checked its final state, answer, automatic
   pickups, drop locations, and effective object location.
 - Saved the validated dataset to
-  [`data/world_stories_300.json`](../../data/world_stories_300.json).
+  [`Dataset/Week 4/dataset.json`](../../Dataset/Week%204/dataset.json).
 
 ## Reproduction
 
 ```bash
-python3 generate_300_stories.py
+python3 'Dataset/Week 4/generate_300_stories.py'
 ```
 
 The fixed master seed `42` makes the dataset reproducible.

@@ -6,10 +6,14 @@
 
 ## Output
 
-[`scripts/generate_week5_dataset.py`](../../scripts/generate_week5_dataset.py)
+[`Dataset/Week 5/generate_week5_dataset.py`](../../Dataset/Week%205/generate_week5_dataset.py)
 is one complete, independently runnable, standard-library-only program. By
 default it creates 10,000 training, 1,000 validation, and 1,000 standard test
 examples.
+
+The three splits and their statistics are packaged in the adjacent
+`dataset.json`, under `splits` and `statistics`. Each weekly folder contains
+only its standalone program and this data file.
 
 Every split is jointly balanced across four queried objects and five answer
 classes. The program rejects duplicate structured stories across splits,
@@ -19,7 +23,7 @@ rule-based accuracy with zero invalid actions before saving the data.
 ## Run
 
 ```bash
-python3 scripts/generate_week5_dataset.py
+python3 'Dataset/Week 5/generate_week5_dataset.py'
 ```
 
 Reduced sizes can be supplied through the documented command-line options for

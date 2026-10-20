@@ -366,7 +366,7 @@ def main():
     print("Validating every story...")
     validate_dataset(dataset)
 
-    output_path = Path("data/world_stories_300.json")
+    output_path = Path(__file__).resolve().with_name("dataset.json")
     output_path.parent.mkdir(exist_ok=True)
     output_path.write_text(
         json.dumps(dataset, indent=2, ensure_ascii=False) + "\n",

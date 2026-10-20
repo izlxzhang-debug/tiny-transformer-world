@@ -6,6 +6,7 @@ answers are derived from simulator states, and every accepted example is
 replayed before the output files are committed to disk.
 
 The script uses only Python's standard library.
+It saves one adjacent dataset.json containing named splits and statistics.
 """
 
 from __future__ import annotations
@@ -395,7 +396,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-size", type=int, default=10_000)
     parser.add_argument("--validation-size", type=int, default=1_000)
     parser.add_argument("--test-size", type=int, default=1_000)
-    parser.add_argument("--output-dir", type=Path, default=Path("data/week5"))
+    parser.add_argument("--output-dir", type=Path, default=Path(__file__).resolve().parent)
     parser.add_argument(
         "--seed-offset",
         type=int,
@@ -431,9 +432,6 @@ def main() -> None:
         attempts[split] = split_attempts
 
     validate_complete_dataset(splits)
-    for split, records in splits.items():
-        atomic_save_json(records, args.output_dir / f"{split}.json")
-
     statistics = {
         "world_version": WORLD_VERSION,
         "generator_version": GENERATOR_VERSION,
@@ -458,9 +456,12 @@ def main() -> None:
             for split, records in splits.items()
         },
     }
-    atomic_save_json(statistics, args.output_dir / "dataset_statistics.json")
+    atomic_save_json(
+        {"splits": splits, "statistics": statistics},
+        args.output_dir / "dataset.json",
+    )
 
-    print(f"Saved validated dataset to {args.output_dir.resolve()}")
+    print(f"Saved validated dataset to {(args.output_dir / "dataset.json").resolve()}")
     print(f"Stories: {sum(sizes.values()):,}; rule-based accuracy: 100%; invalid actions: 0")
 
 

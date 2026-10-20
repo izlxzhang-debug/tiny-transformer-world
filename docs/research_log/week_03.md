@@ -46,13 +46,13 @@ move already operates on its own deep-copied state.
 ## Reproduction
 
 The complete implementation, checks, and example are all contained in
-[`week3_simulator.py`](../../week3_simulator.py). No third-party libraries are
+[`Dataset/Week 3/week3_simulator.py`](../../Dataset/Week%203/week3_simulator.py). No third-party libraries are
 needed.
 
 Run it with:
 
 ```bash
-python3 week3_simulator.py
+python3 'Dataset/Week 3/week3_simulator.py'
 ```
 
 Expected opening output:
