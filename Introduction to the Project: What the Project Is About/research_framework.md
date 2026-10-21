@@ -114,9 +114,8 @@ there. The main question is:
 
 > Who is carrying the `[object]`?
 
-The complete entities, transition rules, valid examples, invalid actions, and
-edge-case decisions are recorded in the
-[controlled fictional-world specification](world_specification.md).
+The implemented world rules and their checks are included in
+[Test World Rules](../Dataset/2.%20Test%20World%20Rules/test_world_rules.py).
 
 ## Revision rule
 

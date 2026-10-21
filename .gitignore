@@ -35,3 +35,8 @@ results/tiny_transformer_training*/
 !data/generated/.gitkeep
 !figures/generated/.gitkeep
 !results/generated/.gitkeep
+
+# Older project material retained locally but no longer published
+/docs/
+/src/
+/tests/
