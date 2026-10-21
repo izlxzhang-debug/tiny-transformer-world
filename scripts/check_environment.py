@@ -1,4 +1,4 @@
-"""Confirm that the research environment has all core dependencies."""
+"""Confirm dependencies and the current GitHub repository layout."""
 
 from importlib import import_module
 from pathlib import Path
@@ -43,15 +43,13 @@ def main() -> None:
     print(f"PyTorch device available: {device}")
     print("Tensor smoke test: passed")
 
+    # Check published folders, not local archives or generated output folders.
     required_directories = [
-        "data",
-        "notebooks",
-        "figures",
+        "Dataset",
+        "Introduction to the Project: What the Project Is About",
+        "Training and Testing Transformer",
         "paper",
-        "checkpoints",
-        "results",
-        "src",
-        "tests",
+        "scripts",
     ]
     missing = [name for name in required_directories if not (ROOT / name).is_dir()]
     if missing:
