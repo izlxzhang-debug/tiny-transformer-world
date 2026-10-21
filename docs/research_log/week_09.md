@@ -16,7 +16,7 @@
 - Added automatic checks for overfitting, unstable training, class imbalance,
   and large differences between random seeds.
 - Kept the complete runnable implementation in
-  [`Trials and Results/Training the Model/train_model.py`](../../Trials%20and%20Results/Training%20the%20Model/train_model.py).
+  [`Training and Testing Transformer/Training the Model/train_model.py`](../../Training%20and%20Testing%20Transformer/Training%20the%20Model/train_model.py).
 
 ## Model settings
 
@@ -65,7 +65,7 @@ From the repository root:
 
 ```bash
 source .venv/bin/activate
-python3 'Trials and Results/Training the Model/train_model.py'
+python3 'Training and Testing Transformer/Training the Model/train_model.py'
 ```
 
 Generated metrics and checkpoints are written under

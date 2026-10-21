@@ -6,7 +6,7 @@ one agent token, patches one [layer, token] activation at a time, and writes a
 heatmap plus random-direction/token/layer and unrelated-property controls.
 
 Run from the project root:
-  python3 'Trials and Results/Testing What the Model Uses/test_what_model_uses.py'
+  python3 'Training and Testing Transformer/Testing What the Model Uses/test_what_model_uses.py'
 """
 
 from __future__ import annotations

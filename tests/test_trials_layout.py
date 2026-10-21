@@ -41,7 +41,7 @@ def run(program, arguments, cwd):
 
 @pytest.mark.parametrize("folder,filename", TRIALS.items())
 def test_each_experiment_is_one_program_and_one_results_file(tmp_path, folder, filename):
-    directory = ROOT / "Trials and Results" / folder
+    directory = ROOT / "Training and Testing Transformer" / folder
     assert {p.name for p in directory.iterdir()} == {filename, "results.json"}
     result = json.loads((directory / "results.json").read_text())
     assert result["experiment"] == folder
@@ -60,7 +60,7 @@ def test_small_pipeline_runs_from_copied_programs(tmp_path):
     programs = {}
     for folder, filename in TRIALS.items():
         destination = tmp_path / filename
-        shutil.copyfile(ROOT / "Trials and Results" / folder / filename, destination)
+        shutil.copyfile(ROOT / "Training and Testing Transformer" / folder / filename, destination)
         programs[folder] = destination
     data = ROOT / "Dataset/Training and Harder Tests/dataset.json"
     data_dir = data.parent

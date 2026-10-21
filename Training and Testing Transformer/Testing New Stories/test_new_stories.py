@@ -3,7 +3,7 @@
 
 Run from the repository root:
 
-    python3 'Trials and Results/Testing New Stories/test_new_stories.py'
+    python3 'Training and Testing Transformer/Testing New Stories/test_new_stories.py'
 
 The evaluator covers standard stories, longer stories, withheld pickup
 combinations, unseen character names, stories with distractor events, and

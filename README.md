@@ -15,12 +15,12 @@ This workspace supports the passion project:
 | 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/300%20Stories/generate_samples.py) and [300 validated stories](Dataset/300%20Stories/dataset.json) |
 | 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Test%20Stories/generate_splits.py) and [dataset](Dataset/Training%20and%20Test%20Stories/dataset.json) |
 | 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Harder%20Tests/generate_full_dataset.py) and [dataset](Dataset/Training%20and%20Harder%20Tests/dataset.json) |
-| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](Trials%20and%20Results/Learning%20100%20Stories/learn_100_stories.py) and [research log](docs/research_log/week_08.md) |
+| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](Training%20and%20Testing%20Transformer/Learning%20100%20Stories/learn_100_stories.py) and [research log](docs/research_log/week_08.md) |
 | 9 | Three-seed full training | Complete | [Week 9 package](docs/training_instructions.md) and [research log](docs/research_log/week_09.md) |
-| 10 | Generalization tests | Recorded results included | [Testing New Stories](Trials%20and%20Results/Testing%20New%20Stories/) |
-| 11 | Error analysis and model changes | Recorded results included | [Finding Mistakes](Trials%20and%20Results/Finding%20Mistakes/) |
-| 12 | Hidden vectors and probes | Recorded results included | [Looking Inside the Model](Trials%20and%20Results/Looking%20Inside%20the%20Model/) |
-| 13 | Activation interventions | Recorded results included | [Testing What the Model Uses](Trials%20and%20Results/Testing%20What%20the%20Model%20Uses/) |
+| 10 | Generalization tests | Recorded results included | [Testing New Stories](Training%20and%20Testing%20Transformer/Testing%20New%20Stories/) |
+| 11 | Error analysis and model changes | Recorded results included | [Finding Mistakes](Training%20and%20Testing%20Transformer/Finding%20Mistakes/) |
+| 12 | Hidden vectors and probes | Recorded results included | [Looking Inside the Model](Training%20and%20Testing%20Transformer/Looking%20Inside%20the%20Model/) |
+| 13 | Activation interventions | Recorded results included | [Testing What the Model Uses](Training%20and%20Testing%20Transformer/Testing%20What%20the%20Model%20Uses/) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -97,7 +97,7 @@ epoch, saves best and final checkpoints, and checks overfitting, instability,
 class balance, and seed sensitivity. Mean final validation accuracy was 69.13%
 with a 0.65-point range across seeds. See the [Week 9 package](docs/training_instructions.md).
 
-## Trials and Results
+## Training and Testing Transformer
 
 Each of these folders contains one complete Python program and one
 `results.json` containing the results already recorded for that experiment:
@@ -149,8 +149,8 @@ python3 'Dataset/Testing the Rules/check_rules.py'
 python3 'Dataset/300 Stories/generate_samples.py'
 python3 'Dataset/Training and Test Stories/generate_splits.py'
 python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'
-python3 'Trials and Results/Learning 100 Stories/learn_100_stories.py'
-python3 'Trials and Results/Training the Model/train_model.py'
+python3 'Training and Testing Transformer/Learning 100 Stories/learn_100_stories.py'
+python3 'Training and Testing Transformer/Training the Model/train_model.py'
 python scripts/check_environment.py
 python 'Dataset/Example Stories/generate_examples.py'
 pytest
@@ -167,7 +167,7 @@ deactivate
 
 ```text
 Dataset/       Weeks 2-6: one standalone .py and one dataset.json per week
-Trials and Results/  Experiments: one complete .py and one results.json each
+Training and Testing Transformer/  Experiments: one complete .py and one results.json each
 docs/          proposal, definitions, specifications, and weekly research logs
 src/           simulator, models, training, evaluation, and interpretability code
 tests/         simulator and dataset correctness tests

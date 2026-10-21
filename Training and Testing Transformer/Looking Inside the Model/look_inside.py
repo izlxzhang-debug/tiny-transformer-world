@@ -7,11 +7,11 @@ model checkpoint and the story dataset are required inputs.
 
 Default run from the repository root:
 
-    python3 'Trials and Results/Looking Inside the Model/look_inside.py'
+    python3 'Training and Testing Transformer/Looking Inside the Model/look_inside.py'
 
 Small verification run:
 
-    python3 'Trials and Results/Looking Inside the Model/look_inside.py' --device cpu --max-examples 200
+    python3 'Training and Testing Transformer/Looking Inside the Model/look_inside.py' --device cpu --max-examples 200
 
 The default run extracts train, validation, and standard-test vectors and then
 runs the probes. Use 'extract --help' or 'probe --help' to run either stage

@@ -12,7 +12,7 @@ This is intentionally one self-contained file. It implements:
 
 Run from the repository root:
 
-    python3 'Trials and Results/Learning 100 Stories/learn_100_stories.py'
+    python3 'Training and Testing Transformer/Learning 100 Stories/learn_100_stories.py'
 
 The default experiment selects 20 examples for each of the five answers and
 trains until it reaches at least 98% accuracy on those same 100 examples.

@@ -3,11 +3,11 @@
 
 Full experiment, from the repository root:
 
-    python3 'Trials and Results/Finding Mistakes/find_mistakes.py'
+    python3 'Training and Testing Transformer/Finding Mistakes/find_mistakes.py'
 
 Fast five-model pipeline check:
 
-    python3 'Trials and Results/Finding Mistakes/find_mistakes.py' \
+    python3 'Training and Testing Transformer/Finding Mistakes/find_mistakes.py' \
         --device cpu --epochs 1 --d-model 32 --ff-dim 64 \
         --train-limit 100 --validation-limit 100 --test-limit 20 \
         --fewer-examples 20 --output-dir results/week11_smoke
