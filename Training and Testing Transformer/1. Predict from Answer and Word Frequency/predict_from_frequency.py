@@ -6,7 +6,7 @@ from unordered word counts using logistic regression. This single file needs
 Python and scikit-learn, plus the story dataset; no other project code is used.
 
 Run from the repository root:
-    python3 'Training and Testing Transformer/Simple Guesses/simple_guesses.py'
+    python3 'Training and Testing Transformer/1. Predict from Answer and Word Frequency/predict_from_frequency.py'
 
 Both systems use only training data to fit their parameters. Results on the
 four original test sets are saved together in the adjacent results.json.
@@ -37,7 +37,7 @@ TEST_SPLITS = {
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path,
-        default=Path("Dataset/Training and Harder Tests/dataset.json"),
+        default=Path("Dataset/5. Generate Full Dataset/dataset.json"),
         help="The complete JSON story dataset with named splits.")
     parser.add_argument("--data-dir", type=Path, default=None,
         help="Optional folder containing the earlier separate JSONL splits.")
@@ -56,8 +56,8 @@ def iter_dataset_records(path: Path, split: str | None = None):
             (parent for parent in Path(__file__).resolve().parents
              if (parent / "Dataset").is_dir()), Path.cwd(),
         )
-        allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-        source = root / "Dataset/Training and Harder Tests/dataset.json"
+        allowed = {root / "data/week6_full_dataset", root / "Dataset/5. Generate Full Dataset"}
+        source = root / "Dataset/5. Generate Full Dataset/dataset.json"
         if path.parent.resolve() not in allowed or not source.is_file():
             raise FileNotFoundError(f"Missing dataset: {path}")
     with source.open(encoding="utf-8") as handle:
@@ -169,7 +169,7 @@ def main():
     training_records = read("train")
     test_sets = {name: read(split) for name, split in TEST_SPLITS.items()}
     result = {
-        "experiment": "Simple Guesses",
+        "experiment": "1. Predict from Answer and Word Frequency",
         "models": run_baselines(training_records, test_sets, args.max_iterations),
         "source": "Measured by running this program on the supplied story dataset.",
         "notes": [

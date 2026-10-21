@@ -75,7 +75,7 @@ The stories cover:
 Generate the checked dataset with:
 
 ```bash
-python 'Dataset/Example Stories/generate_examples.py'
+python 'Dataset/1. Generate Example Stories/generate_example_stories.py'
 ```
 
 Run the checks with:

@@ -1,12 +1,12 @@
 # Week 9: Three-Seed Tiny-Transformer Training
 
-The `Training and Testing Transformer/Training the Model/` folder contains one standalone
+The `Training and Testing Transformer/3. Train with Three Random Seeds/` folder contains one standalone
 program for training the word-level tiny transformer with three random seeds
 and comparing the runs, plus the original recorded results in `results.json`.
 
 ## Included file
 
-- `train_model.py`: model, tokenizer, training loop,
+- `train_with_three_seeds.py`: model, tokenizer, training loop,
   validation loop, checkpoint system, metrics export, and diagnostics in one
   runnable Python file.
 
@@ -21,7 +21,7 @@ Run from the repository root:
 
 ```bash
 source .venv/bin/activate
-python3 'Training and Testing Transformer/Training the Model/train_model.py'
+python3 'Training and Testing Transformer/3. Train with Three Random Seeds/train_with_three_seeds.py'
 ```
 
 The defaults use:
@@ -39,7 +39,7 @@ The defaults use:
 ## Fast verification
 
 ```bash
-python3 'Training and Testing Transformer/Training the Model/train_model.py' \
+python3 'Training and Testing Transformer/3. Train with Three Random Seeds/train_with_three_seeds.py' \
   --device cpu \
   --epochs 2 \
   --max-train 200 \

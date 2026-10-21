@@ -1,5 +1,5 @@
 {
-  "experiment": "Testing What the Model Uses",
+  "experiment": "7. Change Internal Values and Test Answers",
   "source_directories": [
     "results/activation_interventions"
   ],

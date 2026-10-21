@@ -6,7 +6,7 @@ one agent token, patches one [layer, token] activation at a time, and writes a
 heatmap plus random-direction/token/layer and unrelated-property controls.
 
 Run from the project root:
-  python3 'Training and Testing Transformer/Testing What the Model Uses/test_what_model_uses.py'
+  python3 'Training and Testing Transformer/7. Change Internal Values and Test Answers/test_internal_changes.py'
 """
 
 from __future__ import annotations
@@ -599,7 +599,7 @@ def main() -> None:
     print("Target clean prediction:", report["pair"]["target_prediction"])
     print("Heatmap:", (args.output_dir / "patching_heatmap.png").resolve())
     print("Report:", (args.output_dir / "intervention_report.json").resolve())
-    write_results_bundle([args.output_dir], args.results_file, "Testing What the Model Uses")
+    write_results_bundle([args.output_dir], args.results_file, "7. Change Internal Values and Test Answers")
 
 
 def write_results_bundle(directories, destination, experiment, *, notes=None):

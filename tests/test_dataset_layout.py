@@ -12,17 +12,17 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 FOLDERS = {
-    2: "Example Stories",
-    3: "Testing the Rules",
-    4: "300 Stories",
-    5: "Training and Test Stories",
-    6: "Training and Harder Tests",
+    2: "1. Generate Example Stories",
+    3: "2. Test World Rules",
+    4: "3. Generate 300 Stories",
+    5: "4. Generate Training and Test Sets",
+    6: "5. Generate Full Dataset",
 }
 PROGRAMS = [
-    (2, "generate_examples.py", []),
-    (3, "check_rules.py", []),
-    (4, "generate_samples.py", []),
-    (5, "generate_splits.py", [
+    (2, "generate_example_stories.py", []),
+    (3, "test_world_rules.py", []),
+    (4, "generate_300_stories.py", []),
+    (5, "generate_training_and_test_sets.py", [
         "--train-size", "20", "--validation-size", "20", "--test-size", "20",
     ]),
     (6, "generate_full_dataset.py", [
@@ -75,12 +75,12 @@ def test_weekly_program_runs_with_only_its_own_file(
 
 
 @pytest.mark.parametrize("filename", [
-    "Training and Testing Transformer/Learning 100 Stories/learn_100_stories.py",
-    "Training and Testing Transformer/Training the Model/train_model.py",
-    "Training and Testing Transformer/Testing New Stories/test_new_stories.py",
-    "Training and Testing Transformer/Finding Mistakes/find_mistakes.py",
-    "Training and Testing Transformer/Looking Inside the Model/look_inside.py",
-    "Training and Testing Transformer/Simple Guesses/simple_guesses.py",
+    "Training and Testing Transformer/2. Memorize 100 Stories/memorize_100_stories.py",
+    "Training and Testing Transformer/3. Train with Three Random Seeds/train_with_three_seeds.py",
+    "Training and Testing Transformer/4. Test on Unfamiliar Stories/test_unfamiliar_stories.py",
+    "Training and Testing Transformer/5. Analyze Errors and Compare Model Changes/analyze_errors_and_model_changes.py",
+    "Training and Testing Transformer/6. Read World States from the Model/read_world_states.py",
+    "Training and Testing Transformer/1. Predict from Answer and Word Frequency/predict_from_frequency.py",
 ])
 def test_consumers_select_only_the_requested_split(tmp_path, filename):
     bundle = tmp_path / "dataset.json"

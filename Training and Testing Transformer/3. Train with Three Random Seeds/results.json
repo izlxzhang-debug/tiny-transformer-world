@@ -1,5 +1,5 @@
 {
-  "experiment": "Training the Model",
+  "experiment": "3. Train with Three Random Seeds",
   "source_directories": [
     "results/tiny_transformer_training"
   ],

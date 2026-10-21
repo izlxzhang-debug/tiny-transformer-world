@@ -1,5 +1,5 @@
 {
-  "experiment": "Finding Mistakes",
+  "experiment": "5. Analyze Errors and Compare Model Changes",
   "source_directories": [
     "results/week11_ablations"
   ],

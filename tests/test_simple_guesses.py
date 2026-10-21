@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROGRAM = ROOT / "Training and Testing Transformer/Simple Guesses/simple_guesses.py"
+PROGRAM = ROOT / "Training and Testing Transformer/1. Predict from Answer and Word Frequency/predict_from_frequency.py"
 
 
 def test_prediction_summary_counts_errors_by_length():
@@ -50,7 +50,7 @@ def test_copied_program_runs_both_baselines_and_fits_only_training_words(tmp_pat
     assert process.returncode == 0, process.stdout + process.stderr
     assert {p.name for p in folder.iterdir()} == {PROGRAM.name, "results.json"}
     result = json.loads((folder / "results.json").read_text())
-    assert result["experiment"] == "Simple Guesses"
+    assert result["experiment"] == "1. Predict from Answer and Word Frequency"
     majority = result["models"]["most_common_answer"]
     words = result["models"]["word_counts"]
     assert majority["majority_label"] == "Lammy"

@@ -7,11 +7,11 @@ model checkpoint and the story dataset are required inputs.
 
 Default run from the repository root:
 
-    python3 'Training and Testing Transformer/Looking Inside the Model/look_inside.py'
+    python3 'Training and Testing Transformer/6. Read World States from the Model/read_world_states.py'
 
 Small verification run:
 
-    python3 'Training and Testing Transformer/Looking Inside the Model/look_inside.py' --device cpu --max-examples 200
+    python3 'Training and Testing Transformer/6. Read World States from the Model/read_world_states.py' --device cpu --max-examples 200
 
 The default run extracts train, validation, and standard-test vectors and then
 runs the probes. Use 'extract --help' or 'probe --help' to run either stage
@@ -54,7 +54,7 @@ def parse_extract_args() -> argparse.Namespace:
     parser.add_argument(
         "--data",
         type=Path,
-        default=Path("Dataset/Training and Harder Tests/dataset.json"),
+        default=Path("Dataset/5. Generate Full Dataset/dataset.json"),
     )
     parser.add_argument(
         "--split", default="validation",
@@ -138,11 +138,11 @@ def iter_dataset_records(path: Path, split: str | None = None):
                  if (parent / "Dataset").is_dir()),
                 Path.cwd(),
             )
-            allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-            source = root / "Dataset/Training and Harder Tests/dataset.json"
+            allowed = {root / "data/week6_full_dataset", root / "Dataset/5. Generate Full Dataset"}
+            source = root / "Dataset/5. Generate Full Dataset/dataset.json"
             if path.parent.resolve() not in allowed or not source.is_file():
                 raise FileNotFoundError(
-                    f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+                    f"Missing {path}. Run python3 'Dataset/5. Generate Full Dataset/generate_full_dataset.py'."
                 )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":
@@ -632,7 +632,7 @@ def extract_main() -> None:
     print("PCA performed: no")
     print("Probe training performed: no")
     write_results_bundle(
-        [args.output.parent], args.results_file, "Looking Inside the Model",
+        [args.output.parent], args.results_file, "6. Read World States from the Model",
         notes=["Hidden vectors were extracted; this stage does not train probes.",
                "Use the probe stage or the default combined run to analyze them."],
     )
@@ -1148,7 +1148,7 @@ def probe_main() -> None:
     print(f"Run-level results: {(args.output_dir / 'probe_runs.csv').resolve()}")
     print(f"Mean/std summary: {(args.output_dir / 'probe_summary.csv').resolve()}")
     print(f"PCA plots: {(args.output_dir / 'pca').resolve()}")
-    write_results_bundle([args.output_dir], args.results_file, "Looking Inside the Model")
+    write_results_bundle([args.output_dir], args.results_file, "6. Read World States from the Model")
 
 
 def write_results_bundle(directories, destination, experiment, *, notes=None):
@@ -1228,7 +1228,7 @@ def main():
     parser.add_argument("--checkpoint", type=Path,
         default=Path("results/tiny_transformer_training/seed_11/checkpoint_best.pt"))
     parser.add_argument("--data", type=Path,
-        default=Path("Dataset/Training and Harder Tests/dataset.json"))
+        default=Path("Dataset/5. Generate Full Dataset/dataset.json"))
     parser.add_argument("--hidden-dir", type=Path, default=Path("results/hidden_states"))
     parser.add_argument("--output-dir", type=Path, default=Path("results/probe_experiments"))
     parser.add_argument("--results-file", type=Path,
@@ -1268,7 +1268,7 @@ def main():
     run_with_arguments(probe_main, command)
     write_results_bundle(
         [args.hidden_dir, args.output_dir], args.results_file,
-        "Looking Inside the Model",
+        "6. Read World States from the Model",
         notes=[
             "Extraction and probes ran together using the three named data splits.",
             "Probe performance measures recoverability, not causal use or consciousness.",

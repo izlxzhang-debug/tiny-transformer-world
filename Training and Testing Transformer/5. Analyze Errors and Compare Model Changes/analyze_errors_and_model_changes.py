@@ -3,11 +3,11 @@
 
 Full experiment, from the repository root:
 
-    python3 'Training and Testing Transformer/Finding Mistakes/find_mistakes.py'
+    python3 'Training and Testing Transformer/5. Analyze Errors and Compare Model Changes/analyze_errors_and_model_changes.py'
 
 Fast five-model pipeline check:
 
-    python3 'Training and Testing Transformer/Finding Mistakes/find_mistakes.py' \
+    python3 'Training and Testing Transformer/5. Analyze Errors and Compare Model Changes/analyze_errors_and_model_changes.py' \
         --device cpu --epochs 1 --d-model 32 --ff-dim 64 \
         --train-limit 100 --validation-limit 100 --test-limit 20 \
         --fewer-examples 20 --output-dir results/week11_smoke
@@ -76,7 +76,7 @@ ERROR_CATEGORIES = [
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--data-dir", type=Path, default=Path("Dataset/Training and Harder Tests")
+        "--data-dir", type=Path, default=Path("Dataset/5. Generate Full Dataset")
     )
     parser.add_argument(
         "--output-dir", type=Path, default=Path("results/week11_ablations")
@@ -174,11 +174,11 @@ def iter_dataset_records(path: Path, split: str | None = None):
                  if (parent / "Dataset").is_dir()),
                 Path.cwd(),
             )
-            allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-            source = root / "Dataset/Training and Harder Tests/dataset.json"
+            allowed = {root / "data/week6_full_dataset", root / "Dataset/5. Generate Full Dataset"}
+            source = root / "Dataset/5. Generate Full Dataset/dataset.json"
             if path.parent.resolve() not in allowed or not source.is_file():
                 raise FileNotFoundError(
-                    f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+                    f"Missing {path}. Run python3 'Dataset/5. Generate Full Dataset/generate_full_dataset.py'."
                 )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":
@@ -982,7 +982,7 @@ def main() -> None:
             f"| wording {row['paraphrased_wording_accuracy']:.2%}"
         )
     print(f"Saved results to: {args.output_dir.resolve()}")
-    write_results_bundle([args.output_dir], args.results_file, 'Finding Mistakes')
+    write_results_bundle([args.output_dir], args.results_file, '5. Analyze Errors and Compare Model Changes')
 
 
 def write_results_bundle(directories, destination, experiment, *, notes=None):

@@ -1,5 +1,5 @@
 {
-  "experiment": "Simple Guesses",
+  "experiment": "1. Predict from Answer and Word Frequency",
   "models": {
     "most_common_answer": {
       "model": "majority_class_baseline",

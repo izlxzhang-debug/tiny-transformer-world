@@ -47,12 +47,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--train-data",
         type=Path,
-        default=Path("Dataset/Training and Harder Tests/dataset.json"),
+        default=Path("Dataset/5. Generate Full Dataset/dataset.json"),
     )
     parser.add_argument(
         "--validation-data",
         type=Path,
-        default=Path("Dataset/Training and Harder Tests/dataset.json"),
+        default=Path("Dataset/5. Generate Full Dataset/dataset.json"),
     )
     parser.add_argument(
         "--output-dir",
@@ -159,11 +159,11 @@ def iter_dataset_records(path: Path, split: str | None = None):
                  if (parent / "Dataset").is_dir()),
                 Path.cwd(),
             )
-            allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-            source = root / "Dataset/Training and Harder Tests/dataset.json"
+            allowed = {root / "data/week6_full_dataset", root / "Dataset/5. Generate Full Dataset"}
+            source = root / "Dataset/5. Generate Full Dataset/dataset.json"
             if path.parent.resolve() not in allowed or not source.is_file():
                 raise FileNotFoundError(
-                    f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+                    f"Missing {path}. Run python3 'Dataset/5. Generate Full Dataset/generate_full_dataset.py'."
                 )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":
@@ -776,7 +776,7 @@ def main() -> None:
     print("\nExperiment diagnostics")
     print(json.dumps(aggregate_diagnostics, indent=2))
     print(f"Saved results to: {args.output_dir.resolve()}")
-    write_results_bundle([args.output_dir], args.results_file, 'Training the Model')
+    write_results_bundle([args.output_dir], args.results_file, '3. Train with Three Random Seeds')
 
 
 def write_results_bundle(directories, destination, experiment, *, notes=None):

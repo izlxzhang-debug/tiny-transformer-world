@@ -10,18 +10,18 @@ This workspace supports the passion project:
 | Week | Focus | Status | Main output |
 |---:|---|---|---|
 | 1 | Research question and scope | Complete | [Project proposal](docs/proposal.md) |
-| 2 | Formal world construction | Complete | [Standalone program](Dataset/Example%20Stories/generate_examples.py) and [dataset](Dataset/Example%20Stories/dataset.json) |
-| 3 | Standalone simulator verification | Complete | [Copy-and-run simulator](Dataset/Testing%20the%20Rules/check_rules.py) and [research log](docs/research_log/week_03.md) |
-| 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/300%20Stories/generate_samples.py) and [300 validated stories](Dataset/300%20Stories/dataset.json) |
-| 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Test%20Stories/generate_splits.py) and [dataset](Dataset/Training%20and%20Test%20Stories/dataset.json) |
-| 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Harder%20Tests/generate_full_dataset.py) and [dataset](Dataset/Training%20and%20Harder%20Tests/dataset.json) |
-| 7 | Simple comparison systems | Recorded results included | [Simple Guesses](Training%20and%20Testing%20Transformer/Simple%20Guesses/) |
-| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](Training%20and%20Testing%20Transformer/Learning%20100%20Stories/learn_100_stories.py) and [research log](docs/research_log/week_08.md) |
+| 2 | Formal world construction | Complete | [Standalone program](Dataset/1.%20Generate%20Example%20Stories/generate_example_stories.py) and [dataset](Dataset/1.%20Generate%20Example%20Stories/dataset.json) |
+| 3 | Standalone simulator verification | Complete | [Copy-and-run simulator](Dataset/2.%20Test%20World%20Rules/test_world_rules.py) and [research log](docs/research_log/week_03.md) |
+| 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/3.%20Generate%20300%20Stories/generate_300_stories.py) and [300 validated stories](Dataset/3.%20Generate%20300%20Stories/dataset.json) |
+| 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/4.%20Generate%20Training%20and%20Test%20Sets/generate_training_and_test_sets.py) and [dataset](Dataset/4.%20Generate%20Training%20and%20Test%20Sets/dataset.json) |
+| 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/5.%20Generate%20Full%20Dataset/generate_full_dataset.py) and [dataset](Dataset/5.%20Generate%20Full%20Dataset/dataset.json) |
+| 7 | Simple comparison systems | Recorded results included | [1. Predict from Answer and Word Frequency](Training%20and%20Testing%20Transformer/1.%20Predict%20from%20Answer%20and%20Word%20Frequency/) |
+| 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](Training%20and%20Testing%20Transformer/2.%20Memorize%20100%20Stories/memorize_100_stories.py) and [research log](docs/research_log/week_08.md) |
 | 9 | Three-seed full training | Complete | [Week 9 package](docs/training_instructions.md) and [research log](docs/research_log/week_09.md) |
-| 10 | Generalization tests | Recorded results included | [Testing New Stories](Training%20and%20Testing%20Transformer/Testing%20New%20Stories/) |
-| 11 | Error analysis and model changes | Recorded results included | [Finding Mistakes](Training%20and%20Testing%20Transformer/Finding%20Mistakes/) |
-| 12 | Hidden vectors and probes | Recorded results included | [Looking Inside the Model](Training%20and%20Testing%20Transformer/Looking%20Inside%20the%20Model/) |
-| 13 | Activation interventions | Recorded results included | [Testing What the Model Uses](Training%20and%20Testing%20Transformer/Testing%20What%20the%20Model%20Uses/) |
+| 10 | Generalization tests | Recorded results included | [4. Test on Unfamiliar Stories](Training%20and%20Testing%20Transformer/4.%20Test%20on%20Unfamiliar%20Stories/) |
+| 11 | Error analysis and model changes | Recorded results included | [5. Analyze Errors and Compare Model Changes](Training%20and%20Testing%20Transformer/5.%20Analyze%20Errors%20and%20Compare%20Model%20Changes/) |
+| 12 | Hidden vectors and probes | Recorded results included | [6. Read World States from the Model](Training%20and%20Testing%20Transformer/6.%20Read%20World%20States%20from%20the%20Model/) |
+| 13 | Activation interventions | Recorded results included | [7. Change Internal Values and Test Answers](Training%20and%20Testing%20Transformer/7.%20Change%20Internal%20Values%20and%20Test%20Answers/) |
 
 Week 1 also produced a [working glossary](docs/glossary.md), a
 [preliminary world specification](docs/world_specification.md), and a
@@ -37,10 +37,10 @@ automated tests. See the [Week 2 research log](docs/research_log/week_02.md).
 Week 3 produced one self-contained Python file containing the simulator,
 edge-case checks, and a complete example. It uses only the Python standard
 library and does not require the package or any other project file. Copy
-[Dataset/Testing the Rules/check_rules.py](Dataset/Testing%20the%20Rules/check_rules.py) into a Python file and run it with:
+[Dataset/2. Test World Rules/test_world_rules.py](Dataset/2.%20Test%20World%20Rules/test_world_rules.py) into a Python file and run it with:
 
 ```bash
-python3 'Dataset/Testing the Rules/check_rules.py'
+python3 'Dataset/2. Test World Rules/test_world_rules.py'
 ```
 
 The program should print `All tests passed.` before showing the five world
@@ -58,15 +58,16 @@ splits. Week 6 produces the full 30,000-example dataset, including long-story,
 paraphrase, and withheld-combination test sets plus 100 example references for
 human review. The original generated datasets are included in the repository.
 
-The five folders under `Dataset/` are named for their purpose:
+The five folders under `Dataset/` are numbered 1–5 in Week 2–6 order and named
+for their purpose:
 
 | Folder | Purpose | Original stage |
 |---|---|---|
-| `Example Stories` | Eleven worked stories with correct world states | Week 2 |
-| `Testing the Rules` | Simulator rule checks and a worked example | Week 3 |
-| `300 Stories` | Generate 300 balanced sample stories | Week 4 |
-| `Training and Test Stories` | Generate training, validation, and standard test sets | Week 5 |
-| `Training and Harder Tests` | Generate the full dataset and specialized tests | Week 6 |
+| `1. Generate Example Stories` | Eleven worked stories with correct world states | Week 2 |
+| `2. Test World Rules` | Simulator rule checks and a worked example | Week 3 |
+| `3. Generate 300 Stories` | Generate 300 balanced sample stories | Week 4 |
+| `4. Generate Training and Test Sets` | Generate training, validation, and standard test sets | Week 5 |
+| `5. Generate Full Dataset` | Generate the full dataset and specialized tests | Week 6 |
 
 Each folder contains exactly one standalone Python program and one
 `dataset.json`. Run any program
@@ -80,7 +81,7 @@ and the validation report are stored in the same file. Combining the files
 does not combine the training and test examples into one split.
 
 Training and evaluation programs automatically read the requested split from
-`Dataset/Training and Harder Tests/dataset.json`. Their readers also support the earlier separate
+`Dataset/5. Generate Full Dataset/dataset.json`. Their readers also support the earlier separate
 JSONL files when those files are explicitly supplied. Existing simulator
 modules under `src/` remain available for package imports and automated tests.
 
@@ -100,28 +101,29 @@ with a 0.65-point range across seeds. See the [Week 9 package](docs/training_ins
 
 ## Training and Testing Transformer
 
-Each of these folders contains one complete Python program and one
-`results.json` containing the results already recorded for that experiment:
+Numbering restarts at 1 for Week 7 and runs through 7 for Week 13. Each folder
+contains one complete Python program and one `results.json` containing the
+results already recorded for that experiment:
 
 | Folder | What the program does | Original stage |
 |---|---|---|
-| `Simple Guesses` | Compare always guessing one answer with learning from word counts | Week 7 |
-| `Learning 100 Stories` | Check whether the model can memorize a small set | Week 8 |
-| `Training the Model` | Train with three random seeds and compare the runs | Week 9 |
-| `Testing New Stories` | Test unfamiliar stories and compare with baselines | Week 10 |
-| `Finding Mistakes` | Examine wrong answers and test changes to the model | Week 11 |
-| `Looking Inside the Model` | Extract internal vectors and test what can be read from them | Week 12 |
-| `Testing What the Model Uses` | Change internal activations and measure the effect on answers | Week 13 |
+| `1. Predict from Answer and Word Frequency` | Compare always guessing one answer with learning from word counts | Week 7 |
+| `2. Memorize 100 Stories` | Check whether the model can memorize a small set | Week 8 |
+| `3. Train with Three Random Seeds` | Train with three random seeds and compare the runs | Week 9 |
+| `4. Test on Unfamiliar Stories` | Test unfamiliar stories and compare with baselines | Week 10 |
+| `5. Analyze Errors and Compare Model Changes` | Examine wrong answers and test changes to the model | Week 11 |
+| `6. Read World States from the Model` | Extract internal vectors and test what can be read from them | Week 12 |
+| `7. Change Internal Values and Test Answers` | Change internal activations and measure the effect on answers | Week 13 |
 
 The programs include their model and analysis code without importing Python
 files from other project weeks. They require the installed libraries, the
 relevant story data, and, for later experiments, a trained checkpoint.
 Checkpoints and large hidden-vector files remain under `checkpoints/` and
 `results/` locally. They are referenced in the combined reports rather than
-uploaded inside these folders. On a fresh clone, run `Training the Model` to
+uploaded inside these folders. On a fresh clone, run `3. Train with Three Random Seeds` to
 create the checkpoints needed for the later experiments.
 
-`Simple Guesses` combines the earlier majority-answer and bag-of-words scripts
+`1. Predict from Answer and Word Frequency` combines the earlier majority-answer and bag-of-words scripts
 in one program. Its `results.json` preserves both original baseline reports;
 the program can regenerate both from the story dataset without a transformer
 checkpoint.
@@ -132,7 +134,7 @@ final accuracy but not a per-epoch loss history. New runs refresh the adjacent
 report by default; use `--results-file` to save a new report elsewhere. Raw
 checkpoints, plots, and tables keep their existing output directories.
 
-`Looking Inside the Model` combines the old extraction and probe programs.
+`6. Read World States from the Model` combines the old extraction and probe programs.
 Its default command runs both stages; `extract --help` and `probe --help`
 describe the individual stages. Probe scores show what information can be
 recovered and do not by themselves establish that the model uses it.
@@ -152,15 +154,15 @@ Open a terminal in this folder and run:
 
 ```bash
 source .venv/bin/activate
-python3 'Dataset/Testing the Rules/check_rules.py'
-python3 'Dataset/300 Stories/generate_samples.py'
-python3 'Dataset/Training and Test Stories/generate_splits.py'
-python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'
-python3 'Training and Testing Transformer/Simple Guesses/simple_guesses.py'
-python3 'Training and Testing Transformer/Learning 100 Stories/learn_100_stories.py'
-python3 'Training and Testing Transformer/Training the Model/train_model.py'
+python3 'Dataset/2. Test World Rules/test_world_rules.py'
+python3 'Dataset/3. Generate 300 Stories/generate_300_stories.py'
+python3 'Dataset/4. Generate Training and Test Sets/generate_training_and_test_sets.py'
+python3 'Dataset/5. Generate Full Dataset/generate_full_dataset.py'
+python3 'Training and Testing Transformer/1. Predict from Answer and Word Frequency/predict_from_frequency.py'
+python3 'Training and Testing Transformer/2. Memorize 100 Stories/memorize_100_stories.py'
+python3 'Training and Testing Transformer/3. Train with Three Random Seeds/train_with_three_seeds.py'
 python scripts/check_environment.py
-python 'Dataset/Example Stories/generate_examples.py'
+python 'Dataset/1. Generate Example Stories/generate_example_stories.py'
 pytest
 jupyter lab
 ```

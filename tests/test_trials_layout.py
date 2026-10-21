@@ -13,13 +13,13 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 TRIALS = {
-    "Simple Guesses": "simple_guesses.py",
-    "Learning 100 Stories": "learn_100_stories.py",
-    "Training the Model": "train_model.py",
-    "Testing New Stories": "test_new_stories.py",
-    "Finding Mistakes": "find_mistakes.py",
-    "Looking Inside the Model": "look_inside.py",
-    "Testing What the Model Uses": "test_what_model_uses.py",
+    "1. Predict from Answer and Word Frequency": "predict_from_frequency.py",
+    "2. Memorize 100 Stories": "memorize_100_stories.py",
+    "3. Train with Three Random Seeds": "train_with_three_seeds.py",
+    "4. Test on Unfamiliar Stories": "test_unfamiliar_stories.py",
+    "5. Analyze Errors and Compare Model Changes": "analyze_errors_and_model_changes.py",
+    "6. Read World States from the Model": "read_world_states.py",
+    "7. Change Internal Values and Test Answers": "test_internal_changes.py",
 }
 
 
@@ -63,12 +63,12 @@ def test_small_pipeline_runs_from_copied_programs(tmp_path):
         destination = tmp_path / filename
         shutil.copyfile(ROOT / "Training and Testing Transformer" / folder / filename, destination)
         programs[folder] = destination
-    data = ROOT / "Dataset/Training and Harder Tests/dataset.json"
+    data = ROOT / "Dataset/5. Generate Full Dataset/dataset.json"
     data_dir = data.parent
     small_architecture = ["--d-model", "8", "--heads", "2", "--ff-dim", "16"]
 
     learning_report = tmp_path / "learning.json"
-    run(programs["Learning 100 Stories"], [
+    run(programs["2. Memorize 100 Stories"], [
         "--data", data, "--examples", "20", "--epochs", "1", "--layers", "1",
         *small_architecture, "--target-accuracy", "0", "--device", "cpu",
         "--checkpoint", tmp_path / "overfit.pt", "--results-file", learning_report,
@@ -76,7 +76,7 @@ def test_small_pipeline_runs_from_copied_programs(tmp_path):
     assert json.loads(learning_report.read_text())["configuration"]["examples"] == 20
 
     training_dir = tmp_path / "training"
-    run(programs["Training the Model"], [
+    run(programs["3. Train with Three Random Seeds"], [
         "--train-data", data, "--validation-data", data,
         "--max-train", "20", "--max-validation", "2000",
         "--epochs", "1", "--layers", "1", *small_architecture,
@@ -86,14 +86,14 @@ def test_small_pipeline_runs_from_copied_programs(tmp_path):
     checkpoint = training_dir / "seed_11/checkpoint_best.pt"
     assert checkpoint.is_file()
 
-    run(programs["Testing New Stories"], [
+    run(programs["4. Test on Unfamiliar Stories"], [
         "--data-dir", data_dir, "--checkpoint-root", training_dir,
         "--max-per-condition", "20", "--max-baseline-train", "100",
         "--device", "cpu", "--output-dir", tmp_path / "evaluation",
         "--results-file", tmp_path / "evaluation.json",
     ], tmp_path)
 
-    run(programs["Finding Mistakes"], [
+    run(programs["5. Analyze Errors and Compare Model Changes"], [
         "--data-dir", data_dir, "--train-limit", "40", "--validation-limit", "20",
         "--test-limit", "20", "--fewer-examples", "20", "--epochs", "1",
         *small_architecture, "--device", "cpu", "--output-dir", tmp_path / "errors",
@@ -102,7 +102,7 @@ def test_small_pipeline_runs_from_copied_programs(tmp_path):
 
     hidden_dir = tmp_path / "hidden"
     inside_report = tmp_path / "inside.json"
-    run(programs["Looking Inside the Model"], [
+    run(programs["6. Read World States from the Model"], [
         "--checkpoint", checkpoint, "--data", data, "--max-examples", "200",
         "--max-train", "200", "--device", "cpu", "--hidden-dir", hidden_dir,
         "--output-dir", tmp_path / "probes", "--results-file", inside_report,
@@ -112,7 +112,7 @@ def test_small_pipeline_runs_from_copied_programs(tmp_path):
     assert all(m["examples"] == 200 for m in inside["hidden_state_metadata"].values())
     assert (tmp_path / "probes/probe_summary.csv").is_file()
 
-    run(programs["Testing What the Model Uses"], [
+    run(programs["7. Change Internal Values and Test Answers"], [
         "--checkpoint", checkpoint, "--controls", "1", "--top-k", "1",
         "--device", "cpu", "--output-dir", tmp_path / "interventions",
         "--results-file", tmp_path / "interventions.json",

@@ -3,7 +3,7 @@
 
 Run from the repository root:
 
-    python3 'Training and Testing Transformer/Testing New Stories/test_new_stories.py'
+    python3 'Training and Testing Transformer/4. Test on Unfamiliar Stories/test_unfamiliar_stories.py'
 
 The evaluator covers standard stories, longer stories, withheld pickup
 combinations, unseen character names, stories with distractor events, and
@@ -72,7 +72,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--data-dir",
         type=Path,
-        default=Path("Dataset/Training and Harder Tests"),
+        default=Path("Dataset/5. Generate Full Dataset"),
     )
     parser.add_argument(
         "--checkpoint-root",
@@ -161,11 +161,11 @@ def iter_dataset_records(path: Path, split: str | None = None):
                  if (parent / "Dataset").is_dir()),
                 Path.cwd(),
             )
-            allowed = {root / "data/week6_full_dataset", root / "Dataset/Training and Harder Tests"}
-            source = root / "Dataset/Training and Harder Tests/dataset.json"
+            allowed = {root / "data/week6_full_dataset", root / "Dataset/5. Generate Full Dataset"}
+            source = root / "Dataset/5. Generate Full Dataset/dataset.json"
             if path.parent.resolve() not in allowed or not source.is_file():
                 raise FileNotFoundError(
-                    f"Missing {path}. Run python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'."
+                    f"Missing {path}. Run python3 'Dataset/5. Generate Full Dataset/generate_full_dataset.py'."
                 )
     with source.open("r", encoding="utf-8") as handle:
         if source.suffix == ".json":
@@ -769,7 +769,7 @@ def main() -> None:
     print("\nAutomatic comparison table")
     print((args.output_dir / "comparison_table.md").read_text(encoding="utf-8"))
     print(f"Saved results to: {args.output_dir.resolve()}")
-    write_results_bundle([args.output_dir], args.results_file, 'Testing New Stories')
+    write_results_bundle([args.output_dir], args.results_file, '4. Test on Unfamiliar Stories')
 
 
 def write_results_bundle(directories, destination, experiment, *, notes=None):

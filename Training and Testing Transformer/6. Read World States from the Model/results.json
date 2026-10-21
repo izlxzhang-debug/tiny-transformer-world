@@ -1,5 +1,5 @@
 {
-  "experiment": "Looking Inside the Model",
+  "experiment": "6. Read World States from the Model",
   "source_directories": [
     "results/hidden_states",
     "results/probe_experiments"
