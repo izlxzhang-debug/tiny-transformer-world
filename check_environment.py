@@ -6,7 +6,7 @@ import os
 import platform
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parent
 os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".cache" / "matplotlib"))
 
 
@@ -49,7 +49,6 @@ def main() -> None:
         "Introduction to the Project: What the Project Is About",
         "Training and Testing Transformer",
         "paper",
-        "scripts",
     ]
     missing = [name for name in required_directories if not (ROOT / name).is_dir()]
     if missing:
