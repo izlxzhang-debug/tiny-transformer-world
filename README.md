@@ -15,6 +15,7 @@ This workspace supports the passion project:
 | 4 | Balanced dataset generation | Complete | [Complete generator](Dataset/300%20Stories/generate_samples.py) and [300 validated stories](Dataset/300%20Stories/dataset.json) |
 | 5 | Train/validation/test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Test%20Stories/generate_splits.py) and [dataset](Dataset/Training%20and%20Test%20Stories/dataset.json) |
 | 6 | Full and specialized test generation | Dataset included | [Standalone generator](Dataset/Training%20and%20Harder%20Tests/generate_full_dataset.py) and [dataset](Dataset/Training%20and%20Harder%20Tests/dataset.json) |
+| 7 | Simple comparison systems | Recorded results included | [Simple Guesses](Training%20and%20Testing%20Transformer/Simple%20Guesses/) |
 | 8 | Tiny-transformer construction | Overfitting test passed | [Tiny transformer](Training%20and%20Testing%20Transformer/Learning%20100%20Stories/learn_100_stories.py) and [research log](docs/research_log/week_08.md) |
 | 9 | Three-seed full training | Complete | [Week 9 package](docs/training_instructions.md) and [research log](docs/research_log/week_09.md) |
 | 10 | Generalization tests | Recorded results included | [Testing New Stories](Training%20and%20Testing%20Transformer/Testing%20New%20Stories/) |
@@ -104,6 +105,7 @@ Each of these folders contains one complete Python program and one
 
 | Folder | What the program does | Original stage |
 |---|---|---|
+| `Simple Guesses` | Compare always guessing one answer with learning from word counts | Week 7 |
 | `Learning 100 Stories` | Check whether the model can memorize a small set | Week 8 |
 | `Training the Model` | Train with three random seeds and compare the runs | Week 9 |
 | `Testing New Stories` | Test unfamiliar stories and compare with baselines | Week 10 |
@@ -118,6 +120,11 @@ Checkpoints and large hidden-vector files remain under `checkpoints/` and
 `results/` locally. They are referenced in the combined reports rather than
 uploaded inside these folders. On a fresh clone, run `Training the Model` to
 create the checkpoints needed for the later experiments.
+
+`Simple Guesses` combines the earlier majority-answer and bag-of-words scripts
+in one program. Its `results.json` preserves both original baseline reports;
+the program can regenerate both from the story dataset without a transformer
+checkpoint.
 
 Existing JSON reports and CSV tables are preserved inside each `results.json`.
 The small memorization report comes from its saved checkpoint, which records
@@ -149,6 +156,7 @@ python3 'Dataset/Testing the Rules/check_rules.py'
 python3 'Dataset/300 Stories/generate_samples.py'
 python3 'Dataset/Training and Test Stories/generate_splits.py'
 python3 'Dataset/Training and Harder Tests/generate_full_dataset.py'
+python3 'Training and Testing Transformer/Simple Guesses/simple_guesses.py'
 python3 'Training and Testing Transformer/Learning 100 Stories/learn_100_stories.py'
 python3 'Training and Testing Transformer/Training the Model/train_model.py'
 python scripts/check_environment.py

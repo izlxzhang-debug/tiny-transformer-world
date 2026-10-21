@@ -1,0 +1,699 @@
+{
+  "experiment": "Simple Guesses",
+  "models": {
+    "most_common_answer": {
+      "model": "majority_class_baseline",
+      "description": "Always predicts the most frequent training answer.",
+      "majority_label": "Lammy",
+      "training_answer_counts": {
+        "Nobody": 4000,
+        "Lammy": 4000,
+        "Penguin": 4000,
+        "Anneena": 4000,
+        "Jade": 4000
+      },
+      "test_results": {
+        "standard": {
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "accuracy_by_story_length": {
+            "1": {
+              "examples": 253,
+              "correct": 35,
+              "accuracy": 0.1383399209486166
+            },
+            "2": {
+              "examples": 300,
+              "correct": 66,
+              "accuracy": 0.22
+            },
+            "3": {
+              "examples": 325,
+              "correct": 64,
+              "accuracy": 0.19692307692307692
+            },
+            "4": {
+              "examples": 379,
+              "correct": 87,
+              "accuracy": 0.22955145118733508
+            },
+            "5": {
+              "examples": 355,
+              "correct": 69,
+              "accuracy": 0.19436619718309858
+            },
+            "6": {
+              "examples": 388,
+              "correct": 79,
+              "accuracy": 0.2036082474226804
+            }
+          }
+        },
+        "long": {
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "accuracy_by_story_length": {
+            "7": {
+              "examples": 536,
+              "correct": 113,
+              "accuracy": 0.21082089552238806
+            },
+            "8": {
+              "examples": 497,
+              "correct": 96,
+              "accuracy": 0.193158953722334
+            },
+            "9": {
+              "examples": 462,
+              "correct": 81,
+              "accuracy": 0.17532467532467533
+            },
+            "10": {
+              "examples": 505,
+              "correct": 110,
+              "accuracy": 0.21782178217821782
+            }
+          }
+        },
+        "paraphrase": {
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "accuracy_by_story_length": {
+            "1": {
+              "examples": 234,
+              "correct": 38,
+              "accuracy": 0.1623931623931624
+            },
+            "2": {
+              "examples": 298,
+              "correct": 56,
+              "accuracy": 0.18791946308724833
+            },
+            "3": {
+              "examples": 343,
+              "correct": 63,
+              "accuracy": 0.1836734693877551
+            },
+            "4": {
+              "examples": 331,
+              "correct": 70,
+              "accuracy": 0.21148036253776434
+            },
+            "5": {
+              "examples": 399,
+              "correct": 83,
+              "accuracy": 0.20802005012531327
+            },
+            "6": {
+              "examples": 395,
+              "correct": 90,
+              "accuracy": 0.22784810126582278
+            }
+          }
+        },
+        "withheld": {
+          "examples": 2000,
+          "correct": 400,
+          "accuracy": 0.2,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              400,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "accuracy_by_story_length": {
+            "1": {
+              "examples": 128,
+              "correct": 11,
+              "accuracy": 0.0859375
+            },
+            "2": {
+              "examples": 206,
+              "correct": 33,
+              "accuracy": 0.16019417475728157
+            },
+            "3": {
+              "examples": 324,
+              "correct": 73,
+              "accuracy": 0.22530864197530864
+            },
+            "4": {
+              "examples": 402,
+              "correct": 80,
+              "accuracy": 0.19900497512437812
+            },
+            "5": {
+              "examples": 434,
+              "correct": 94,
+              "accuracy": 0.21658986175115208
+            },
+            "6": {
+              "examples": 506,
+              "correct": 109,
+              "accuracy": 0.21541501976284586
+            }
+          }
+        }
+      }
+    },
+    "word_counts": {
+      "model": "bag_of_words_logistic_regression",
+      "description": "Unigram word counts followed by multinomial classification.",
+      "training_answer_counts": {
+        "Nobody": 4000,
+        "Lammy": 4000,
+        "Penguin": 4000,
+        "Anneena": 4000,
+        "Jade": 4000
+      },
+      "vocabulary_size": 29,
+      "test_results": {
+        "standard": {
+          "examples": 2000,
+          "correct": 1086,
+          "accuracy": 0.543,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              207,
+              38,
+              47,
+              56,
+              52
+            ],
+            [
+              54,
+              206,
+              46,
+              49,
+              45
+            ],
+            [
+              62,
+              42,
+              207,
+              34,
+              55
+            ],
+            [
+              49,
+              34,
+              57,
+              219,
+              41
+            ],
+            [
+              36,
+              41,
+              39,
+              37,
+              247
+            ]
+          ],
+          "prediction_counts": {
+            "Lammy": 408,
+            "Nobody": 440,
+            "Jade": 396,
+            "Anneena": 361,
+            "Penguin": 395
+          },
+          "accuracy_by_story_length": {
+            "1": {
+              "examples": 253,
+              "correct": 185,
+              "accuracy": 0.7312252964426877
+            },
+            "2": {
+              "examples": 300,
+              "correct": 182,
+              "accuracy": 0.6066666666666667
+            },
+            "3": {
+              "examples": 325,
+              "correct": 179,
+              "accuracy": 0.5507692307692308
+            },
+            "4": {
+              "examples": 379,
+              "correct": 189,
+              "accuracy": 0.49868073878627966
+            },
+            "5": {
+              "examples": 355,
+              "correct": 165,
+              "accuracy": 0.4647887323943662
+            },
+            "6": {
+              "examples": 388,
+              "correct": 186,
+              "accuracy": 0.4793814432989691
+            }
+          }
+        },
+        "long": {
+          "examples": 2000,
+          "correct": 826,
+          "accuracy": 0.413,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              164,
+              57,
+              81,
+              75,
+              23
+            ],
+            [
+              75,
+              150,
+              74,
+              71,
+              30
+            ],
+            [
+              63,
+              63,
+              184,
+              68,
+              22
+            ],
+            [
+              60,
+              73,
+              80,
+              164,
+              23
+            ],
+            [
+              53,
+              60,
+              76,
+              47,
+              164
+            ]
+          ],
+          "prediction_counts": {
+            "Penguin": 425,
+            "Jade": 495,
+            "Anneena": 403,
+            "Nobody": 262,
+            "Lammy": 415
+          },
+          "accuracy_by_story_length": {
+            "7": {
+              "examples": 536,
+              "correct": 220,
+              "accuracy": 0.41044776119402987
+            },
+            "8": {
+              "examples": 497,
+              "correct": 211,
+              "accuracy": 0.4245472837022133
+            },
+            "9": {
+              "examples": 462,
+              "correct": 184,
+              "accuracy": 0.39826839826839827
+            },
+            "10": {
+              "examples": 505,
+              "correct": 211,
+              "accuracy": 0.4178217821782178
+            }
+          }
+        },
+        "paraphrase": {
+          "examples": 2000,
+          "correct": 1000,
+          "accuracy": 0.5,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              186,
+              23,
+              28,
+              44,
+              119
+            ],
+            [
+              38,
+              179,
+              49,
+              36,
+              98
+            ],
+            [
+              44,
+              27,
+              188,
+              32,
+              109
+            ],
+            [
+              35,
+              22,
+              27,
+              183,
+              133
+            ],
+            [
+              31,
+              32,
+              35,
+              38,
+              264
+            ]
+          ],
+          "prediction_counts": {
+            "Nobody": 723,
+            "Penguin": 333,
+            "Anneena": 283,
+            "Jade": 327,
+            "Lammy": 334
+          },
+          "accuracy_by_story_length": {
+            "1": {
+              "examples": 234,
+              "correct": 124,
+              "accuracy": 0.5299145299145299
+            },
+            "2": {
+              "examples": 298,
+              "correct": 166,
+              "accuracy": 0.5570469798657718
+            },
+            "3": {
+              "examples": 343,
+              "correct": 163,
+              "accuracy": 0.4752186588921283
+            },
+            "4": {
+              "examples": 331,
+              "correct": 166,
+              "accuracy": 0.5015105740181269
+            },
+            "5": {
+              "examples": 399,
+              "correct": 198,
+              "accuracy": 0.49624060150375937
+            },
+            "6": {
+              "examples": 395,
+              "correct": 183,
+              "accuracy": 0.46329113924050636
+            }
+          }
+        },
+        "withheld": {
+          "examples": 2000,
+          "correct": 965,
+          "accuracy": 0.4825,
+          "labels": [
+            "Lammy",
+            "Anneena",
+            "Jade",
+            "Penguin",
+            "Nobody"
+          ],
+          "confusion_matrix": [
+            [
+              206,
+              55,
+              53,
+              62,
+              24
+            ],
+            [
+              76,
+              199,
+              52,
+              57,
+              16
+            ],
+            [
+              53,
+              62,
+              212,
+              50,
+              23
+            ],
+            [
+              51,
+              59,
+              66,
+              201,
+              23
+            ],
+            [
+              69,
+              61,
+              63,
+              60,
+              147
+            ]
+          ],
+          "prediction_counts": {
+            "Penguin": 430,
+            "Nobody": 233,
+            "Anneena": 436,
+            "Lammy": 455,
+            "Jade": 446
+          },
+          "accuracy_by_story_length": {
+            "1": {
+              "examples": 128,
+              "correct": 93,
+              "accuracy": 0.7265625
+            },
+            "2": {
+              "examples": 206,
+              "correct": 101,
+              "accuracy": 0.49029126213592233
+            },
+            "3": {
+              "examples": 324,
+              "correct": 168,
+              "accuracy": 0.5185185185185185
+            },
+            "4": {
+              "examples": 402,
+              "correct": 189,
+              "accuracy": 0.4701492537313433
+            },
+            "5": {
+              "examples": 434,
+              "correct": 189,
+              "accuracy": 0.43548387096774194
+            },
+            "6": {
+              "examples": 506,
+              "correct": 225,
+              "accuracy": 0.44466403162055335
+            }
+          }
+        }
+      }
+    }
+  },
+  "source_files": {
+    "most_common_answer": "results/majority_baseline/results.json",
+    "word_counts": "results/bow_logistic_regression/results.json"
+  },
+  "notes": [
+    "Both original saved baseline reports are preserved without changing their measurements.",
+    "The most-common-answer system ignores the story text.",
+    "The word-count system ignores word order.",
+    "These are comparison systems, not trained transformers."
+  ]
+}

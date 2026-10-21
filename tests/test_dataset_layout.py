@@ -80,8 +80,7 @@ def test_weekly_program_runs_with_only_its_own_file(
     "Training and Testing Transformer/Testing New Stories/test_new_stories.py",
     "Training and Testing Transformer/Finding Mistakes/find_mistakes.py",
     "Training and Testing Transformer/Looking Inside the Model/look_inside.py",
-    "scripts/evaluate_majority_baseline.py",
-    "scripts/evaluate_bow_logistic_regression.py",
+    "Training and Testing Transformer/Simple Guesses/simple_guesses.py",
 ])
 def test_consumers_select_only_the_requested_split(tmp_path, filename):
     bundle = tmp_path / "dataset.json"

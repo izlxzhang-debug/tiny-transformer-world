@@ -13,6 +13,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 TRIALS = {
+    "Simple Guesses": "simple_guesses.py",
     "Learning 100 Stories": "learn_100_stories.py",
     "Training the Model": "train_model.py",
     "Testing New Stories": "test_new_stories.py",
